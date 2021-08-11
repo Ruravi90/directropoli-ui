@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -10,7 +10,7 @@ export class SigninComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -38,6 +38,7 @@ export class SigninComponent implements OnInit {
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
+    this.router.navigate([ '/dashboard' ])
   }
 
 }
