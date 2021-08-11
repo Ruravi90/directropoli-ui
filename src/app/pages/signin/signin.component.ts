@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -10,7 +12,9 @@ export class SigninComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -37,8 +41,11 @@ export class SigninComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    console.log(JSON.stringify(this.form.value, null, 2));
-    this.router.navigate([ '/dashboard' ])
+    this.authService.login(this.form.value).then(r=>{
+      this.router.navigate([ '/dashboard' ]);
+    }).catch(e=>{
+      console.log(e);
+    });
   }
 
 }

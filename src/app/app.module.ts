@@ -8,8 +8,10 @@ import { es_ES } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { BasicAuthInterceptor } from './service/BasicAuthInterceptor';
 
 import { IconsProviderModule } from './icons-provider.module';
 import { NgZorroAntdModule } from './NgZorroAntdModule.module';
@@ -41,7 +43,12 @@ import { LandingComponent  } from './pages/landing/landing.component';
     FontAwesomeModule,
     NgZorroAntdModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }],
+  providers: [{
+    provide: NZ_I18N,
+    useValue: es_ES,
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

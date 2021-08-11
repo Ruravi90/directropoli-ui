@@ -4,6 +4,8 @@ import { SigninComponent  } from './pages/signin/signin.component';
 import { RegisterComponent  } from './pages/register/register.component';
 import { LandingComponent  } from './pages/landing/landing.component';
 
+import { AuthGuard } from './auth/auth.guard';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/landing' },
   {
@@ -16,7 +18,9 @@ const routes: Routes = [
     path: 'landing', component: LandingComponent,
   },
   {
-    path: 'dashboard', loadChildren: () => import('./layout/main.module').then(m => m.MainModule)
+    path: 'dashboard',
+    loadChildren: () => import('./layout/main.module').then(m => m.MainModule),
+    canActivate:[AuthGuard]
   },
   { path: '**', component: LandingComponent }
 ];
