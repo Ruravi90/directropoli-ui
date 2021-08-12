@@ -2,7 +2,6 @@
   <form class="text-center" [formGroup]="form" (ngSubmit)="onSubmit()">
       <img class="my-4" src="assets/images/logo.svg" alt="Directropoli">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
     <div class="form-floating">
       <input type="email" class="form-control"
       [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
@@ -20,13 +19,16 @@
       placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
-
+    <div class="mb-3" *ngIf="isError">
+      <nz-alert nzType="error" nzMessage="Correo o contraseña incorrecta" nzShowIcon></nz-alert>
+    </div>
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" value="remember-me"> Remember me
       </label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+    <button class="w-100 btn btn-lg btn-primary" nz-button [nzLoading]="isLoading" nzShape="circle"  type="submit">Sign in</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
   </form>
 </main>
