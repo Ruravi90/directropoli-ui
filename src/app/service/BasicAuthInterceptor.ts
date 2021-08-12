@@ -16,8 +16,6 @@ export class BasicAuthInterceptor implements HttpInterceptor {
         const isLogin = request.url.endsWith("login");
         const isRegister = request.url.endsWith("register");
         if (isApiUrl && !isLogin && !isRegister) {
-          console.log();
-
           request = request.clone({
               setHeaders: {
                   Authorization: `Bearer ${user.token}`

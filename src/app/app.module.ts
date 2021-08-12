@@ -24,6 +24,8 @@ registerLocaleData(es);
 import { SigninComponent  } from './pages/signin/signin.component';
 import { RegisterComponent  } from './pages/register/register.component';
 import { LandingComponent  } from './pages/landing/landing.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,13 @@ import { LandingComponent  } from './pages/landing/landing.component';
     BrowserAnimationsModule,
     IconsProviderModule,
     FontAwesomeModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [{
     provide: NZ_I18N,
