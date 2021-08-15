@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Validation from '../../utils/Validation';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,8 +12,13 @@ import Validation from '../../utils/Validation';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
+  isError=false;
+  isLoading=false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private notification: NzNotificationService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -44,7 +51,13 @@ export class RegisterComponent implements OnInit {
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
-    this.router.navigate([ '/dashboard' ])
+    this.authService.register(this.form.value).then(r=>{
+      this.isLoading = false;
+      this.router.navigate([ '/dashboard' ]);
+    }).catch(e=>{
+      this.isLoading = false;
+      this.isError = true;
+    });
   }
 
 }

@@ -22,17 +22,15 @@ export class AuthService {
       });
     }
 
-    register(data:any){
-      this.http.post<any>(environment.apiBase + "register",data).subscribe(data=>{
+    register(data:any): Promise<any>{
+      return this.http.post<any>(environment.apiBase + "register",data).toPromise().then(data=>{
         var session:any = {};
         session.token = data.token;
         session.user = {};
         session.user.id = data.user.id;
         session.user.name = data.user.name;
         localStorage.setItem("SessionUser",JSON.stringify(session));
-        return true;
-      },error=>{
-        return false;
+        return data;
       });
     }
 
