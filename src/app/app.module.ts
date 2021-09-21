@@ -26,13 +26,23 @@ import { RegisterComponent  } from './pages/register/register.component';
 import { LandingComponent  } from './pages/landing/landing.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { RegisterCategoryComponent } from './pages/register-category/register-category.component';
+import { MemberComponent } from './pages/member/member.component';
+import { RegisterMemberComponent } from './pages/register-member/register-member.component';
+import { CompanyComponent } from './pages/company/company.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
     RegisterComponent,
-    LandingComponent
+    LandingComponent,
+    RegisterCategoryComponent,
+    MemberComponent,
+    RegisterMemberComponent,
+    CompanyComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

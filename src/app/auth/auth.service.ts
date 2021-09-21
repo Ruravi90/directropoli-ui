@@ -12,6 +12,7 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     login(data:any): Promise<any> {
+      delete data.rememberme;
       return this.http.post<any>(environment.apiBase + "login",data).toPromise().then(data=>{
         var session:any = {};
         session.token = data.token;

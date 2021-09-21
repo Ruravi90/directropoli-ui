@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  session:any;
   isCollapsed = false;
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.session = this.authService.userValue();
+
+    console.log(this.session);
   }
 
 }

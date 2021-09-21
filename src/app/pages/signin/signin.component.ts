@@ -31,7 +31,8 @@ export class SigninComponent implements OnInit {
             Validators.minLength(6),
             Validators.maxLength(40)
           ]
-        ]
+        ],
+        rememberme: ['', []],
       }
     );
   }
@@ -47,8 +48,9 @@ export class SigninComponent implements OnInit {
       return;
     }
     this.authService.login(this.form.value).then(r=>{
+      if(this.form.value.rememberme){localStorage.setItem("isRememberMe","true");}
       this.isLoading = false;
-      this.router.navigate([ '/dashboard' ]);
+      this.router.navigate([ '/dashboard/index' ]);
     }).catch(e=>{
       this.isLoading = false;
       this.isError = true;

@@ -33,7 +33,7 @@
               </div>
               <div class="flex-shrink-0 dropdown ps-3">
                   <div class="d-flex align-items-center">
-                      <p class="small me-2 mt-2">Alan Aguirre</p>
+                      <p class="small me-2 mt-2">{{session.user.name}}</p>
                           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                               <img src="assets/images/avatar.svg"  class="rounded-circle">
                           </a>
@@ -55,79 +55,6 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <span data-feather="home"></span>
-              Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file"></span>
-              Orders
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users"></span>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
-            </a>
-          </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Social engagement
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Year-end sale
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="position-sticky pt-3">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Admin</span>
           <a class="link-secondary" href="#" aria-label="Add a new report">
@@ -136,28 +63,10 @@
         </h6>
         <ul class="nav flex-column">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+              <a class="nav-link active" aria-current="page" [routerLink]="['/dashboard/index']">
                 <span data-feather="home"></span>
                 INICIO
-            </a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">
-                <span data-feather="file"></span>
-                INTEGRANTES
-            </a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">
-                <span data-feather="shopping-cart"></span>
-                PROMOCIONES
-            </a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                MARKETPLACE
-            </a>
+              </a>
             </li>
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -168,88 +77,40 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" [routerLink]="['/dashboard/bob']">
               <span data-feather="file-text"></span>
               DIRECTORIOS
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" [routerLink]="['/dashboard/register-category']">
               <span data-feather="file-text"></span>
-              CATEGORÍAS
+              Registro de categorias
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" [routerLink]="['/dashboard/company']">
               <span data-feather="file-text"></span>
-              FICHAS
+              Empresas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/member']">
+              <span data-feather="file-text"></span>
+              Miembros
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/register-member']">
+              <span data-feather="file-text"></span>
+              Registro miembros
             </a>
           </li>
         </ul>
       </div>
     </nav>
-
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-      </div>
-      <div class="col-lg-12">
-          <div class="card shadow-sm">
-              <img src="assets/images/mall01.jpg" class="card-img-top img-gluid" alt="Galerías Guadalajara">
-              <div class="card-body">
-                  <div class="position-relative">
-                      <img class="img-fluid rounded-circle position-absolute position-absolute bottom-0 start-0" src="assets/images/galerias.png" alt="Galerías Guadalajara" width="10%">
-                  </div>
-                  <div class="d-flex justify-content-between mt-2">
-                      <h5 class="card-title">Galerias Guadalajara</h5></div>
-              </div>
-          </div>
-      </div>
-      <div class="row d-flex justify-content-center align-items-center py-4">
-          <h2 class="py-2 text-muted">Categorias</h2>
-          <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-              <div class="card shadow-sm">
-                  <img src="assets/images/clothes01.jpg" alt="">
-                  <div class="card-body">
-                      <a href="">
-                          <h5 class="card-title">Ropa</h5>
-                      </a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-              <div class="card shadow-sm">
-                  <img src="assets/images/jewelry01.jpg" alt="">
-                  <div class="card-body">
-                      <a href="">
-                          <h5 class="card-title">Joyerias</h5>
-                      </a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-              <div class="card shadow-sm">
-                  <img src="assets/images/rest01.jpg" alt="">
-                  <div class="card-body">
-                      <a href="">
-                          <h5 class="card-title">Restaurantes</h5>
-                      </a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-              <div class="card shadow-sm">
-                  <img src="assets/images/tech01.jpg" alt="">
-                  <div class="card-body">
-                      <a href="">
-                          <h5 class="card-title">Tecnología</h5>
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
+      <router-outlet></router-outlet>
     </main>
   </div>
 </div>

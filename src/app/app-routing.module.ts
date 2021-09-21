@@ -5,14 +5,19 @@ import { RegisterComponent  } from './pages/register/register.component';
 import { LandingComponent  } from './pages/landing/landing.component';
 
 import { AuthGuard } from './auth/auth.guard';
+import { RememberGuard } from './auth/remember.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/landing' },
   {
-    path: 'signin', component: SigninComponent,
+    path: 'signin',
+    component: SigninComponent,
+    canActivate:[RememberGuard]
   },
   {
-    path: 'register', component: RegisterComponent,
+    path: 'register',
+    component: RegisterComponent,
+    canActivate:[RememberGuard]
   },
   {
     path: 'landing', component: LandingComponent,
@@ -22,7 +27,11 @@ const routes: Routes = [
     loadChildren: () => import('./layout/main.module').then(m => m.MainModule),
     canActivate:[AuthGuard]
   },
-  { path: '**', component: LandingComponent }
+  {
+    path: '**',
+    component: LandingComponent,
+    canActivate:[RememberGuard]
+  }
 ];
 
 @NgModule({
