@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Crear directorio</h1>
+</div>
+<div class="row d-flex justify-content-center align-items-top py-4 text">
+  <!-- Main Content -->
+  <div class="col-lg-12 mb-2">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control"
+                    formControlName="name"
+                    name="name"
+                    id="floatingName"
+                    placeholder="Nombre del directorio">
+                    <label for="floatingName">Nombre del directorio</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea type="text" class="form-control"
+                  formControlName="description"
+                  name="description"
+                  id="floatingDescription"
+                  placeholder="Descripcion del directorio"></textarea>
+                  <label for="floatingDescription">Descripcion del directorio</label>
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Imagen destacada</label>
+                    <input class="form-control" type="file"
+                    id="formFile"
+                    formControlName="base64"
+                    name="base64"
+                    (change)="getBase64($event)">
+                  </div>
+                  <div class="d-flex justify-content-end mt-4">
+                    <a class="btn btn-outline-danger me-1" href="">Cancelar</a>
+                    <button type="submit" class="btn btn-primary ms-1">Guardar categoría</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>

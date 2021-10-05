@@ -4,10 +4,15 @@ import { MainComponent } from './main/main.component';
 
 @NgModule({
   imports: [
-    MainRoutingModule
+    MainRoutingModule,
   ],
-  declarations: [MainComponent],
-  exports: [MainComponent]
+  declarations: [
+    MainComponent,
+
+  ],
+  exports: [
+    MainComponent,
+  ]
 })
 export class MainModule {
  }

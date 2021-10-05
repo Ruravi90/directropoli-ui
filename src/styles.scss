@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-
-/* Importing Bootstrap SCSS file. */
-@import "~ng-zorro-antd/ng-zorro-antd.min.css";
-@import 'assets/bootstrap-5.0.2-dist/css/bootstrap.min.css';
+/* Custom
+@import 'variables';
+@import 'mixins';
+@import 'custom';
+*/
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~bootstrap/scss/bootstrap.scss';
 @import 'assets/css/style.css';
+
+

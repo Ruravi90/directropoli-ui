@@ -1,0 +1,195 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Crear miembro</h1>
+</div>
+<div class="col-lg-12">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <h3>Generales</h3>
+                <div class="row py-2">
+                    <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control"
+                            id="floatingInput"
+                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                            formControlName="name"
+                            name="name"
+                            placeholder="Nombre del miembro">
+                            <label for="floatingInput">Nombre del miembro</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control"
+                          id="floatingInput"
+                          [ngClass]="{ 'is-invalid': submitted && f.short_description.errors }"
+                          formControlName="short_description"
+                          name="short_description"
+                          placeholder="Descripción corta">
+                          <label for="floatingInput">Descripción corta</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                        <div class="form-floating">
+                          <select class="form-select disabled"
+                          id="floatingSelect"
+                          [ngClass]="{ 'is-invalid': submitted && f.directory_id.errors }"
+                          formControlName="directory_id"
+                          name="directory_id"
+                          [disabled]="true"
+                          [(ngModel)]="directoryId"
+                          aria-label="Disabled floating label select example">
+                              <option *ngIf="directory" [value]="directory.id" selected disabled>{{directory.name}}</option>
+                          </select>
+                          <label for="floatingSelect">Selecciona un directorio</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                        <div class="form-floating">
+                          <select class="form-select"
+                          id="floatingSelect"
+                          [ngClass]="{ 'is-invalid': submitted && f.category_id.errors }"
+                          formControlName="category_id"
+                          name="category_id"
+                          aria-label="Floating label select example">
+                              <option value="{{item.id}}" *ngFor="let item of categories">{{item.name}}</option>
+                          </select>
+                          <label for="floatingSelect">Selecciona una categoría</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">Facebook</span>
+                          <input type="text" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.facebook.errors }"
+                          formControlName="facebook"
+                          name="facebook"
+                          aria-label="Facebook"
+                          aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">Twitter</span>
+                          <input type="text" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.twitter.errors }"
+                          formControlName="twitter"
+                          name="twitter"
+                          aria-label="Twitter"
+                          aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">Instagram</span>
+                          <input type="text" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.instagram.errors }"
+                          formControlName="instagram"
+                          name="instagram"
+                          aria-label="Instagram"
+                          aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Whatsapp</span>
+                            <input type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.whatsapp.errors }"
+                            formControlName="whatsapp"
+                            name="whatsapp"
+                            aria-label="Whatsapp"
+                            aria-describedby="basic-addon1">
+                          </div>
+                    </div>
+                </div>
+                <h3>Descriptivos</h3>
+                <div class="row py-2">
+                    <div class="form-floating">
+                        <textarea class="form-control"
+                        placeholder="Descripción"
+                        id="floatingTextarea"
+                        [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                        formControlName="description"
+                        name="description"
+                        ></textarea>
+                        <label for="floatingTextarea">Descripción</label>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Representante</span>
+                            <input type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.manager.errors }"
+                            formControlName="manager"
+                            name="manager"
+                            aria-label="Facebook" aria-describedby="basic-addon1">
+                          </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Puesto</span>
+                            <input type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.job_possion.errors }"
+                            formControlName="job_possion"
+                            name="job_possion"
+                            aria-label="Twitter" aria-describedby="basic-addon1">
+                          </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Teléfono</span>
+                            <input type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+                            formControlName="phone"
+                            name="phone"
+                            aria-label="phone" aria-describedby="basic-addon1">
+                          </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Correo</span>
+                            <input type="text" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                            formControlName="email"
+                            name="email"
+                            aria-label="email" aria-describedby="basic-addon1">
+                          </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-lg-6 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">Dirección</span>
+                          <input type="text" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                          formControlName="address"
+                          name="address"
+                          aria-label="addres" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 my-2">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">Mapa</span>
+                          <input type="text" class="form-control" aria-label="Twitter" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="mb-3">
+                      <label for="formFileMultiple" class="form-label">Agrega tus imagenes</label>
+                      <input class="form-control" type="file" id="formFileMultiple" (change)="getBase64($event)" multiple>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                    <a class="btn btn-outline-danger me-1" href="">Cancelar</a>
+                    <button type="submit" class="btn btn-primary ms-1">Guardar miembro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
