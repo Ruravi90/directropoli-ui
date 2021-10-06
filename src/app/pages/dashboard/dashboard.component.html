@@ -1,56 +1,14 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Dashboard</h1>
-</div>
-<div class="col-lg-12">
-    <div class="card shadow-sm">
-        <img src="assets/images/mall01.jpg" class="card-img-top img-gluid" alt="Galerías Guadalajara">
-        <div class="card-body">
-            <div class="position-relative">
-                <img class="img-fluid rounded-circle position-absolute position-absolute bottom-0 start-0" src="assets/images/galerias.png" alt="Galerías Guadalajara" width="10%">
-            </div>
-            <div class="d-flex justify-content-between mt-2">
-                <h5 class="card-title">Galerias Guadalajara</h5></div>
-        </div>
-    </div>
+  <h1 class="h2">Directorios</h1> <a class="btn btn-primary" [routerLink]="['/dashboard/register-directory']">Nuevo directorio</a>
 </div>
 <div class="row d-flex justify-content-center align-items-center py-4">
-    <h2 class="py-2 text-muted">Categorias</h2>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+    <div class="col-lg-3 col-md-6 col-sm-6 mb-4" *ngFor="let directory of directories">
         <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
+            <img *ngFor="let img of directory.images" [src]="img.base64" alt="{{directory.name}}">
             <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Ropa</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/jewelry01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Joyerias</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/rest01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Restaurantes</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/tech01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Tecnología</h5>
+                <a [routerLink]="['/dashboard/members/',directory.id]">
+                    <h5 class="card-title">{{directory.name}}</h5>
+                    <p class="card-text">{{directory.description}}</p>
                 </a>
             </div>
         </div>

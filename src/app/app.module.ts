@@ -31,6 +31,7 @@ import { MemberComponent } from './pages/member/member.component';
 import { RegisterMemberComponent } from './pages/register-member/register-member.component';
 import { CompanyComponent } from './pages/company/company.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { RegisterDirectoryComponent } from './pages/register-directory/register-directory.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     MemberComponent,
     RegisterMemberComponent,
     CompanyComponent,
-    DashboardComponent
+    DashboardComponent,
+    RegisterDirectoryComponent
   ],
   imports: [
     BrowserModule,

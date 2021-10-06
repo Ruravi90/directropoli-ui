@@ -1,85 +1,26 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Plaza Galerias | Tiendas de ropa</h1>
+  <h1 class="h2">{{directory.name}} </h1>  <a class="btn btn-primary" [routerLink]="['/dashboard/register-member',directoryId]">Nuevo miembro</a>
 </div>
 <div class="col-lg-12">
     <div class="card shadow-sm">
-        <img src="assets/images/mall01.jpg" class="card-img-top img-gluid" alt="Galerías Guadalajara">
+        <img *ngFor="let img of directory.images;let first = first" [src]="img.base64" class="card-img-top img-gluid" alt="Galerías Guadalajara">
         <div class="card-body">
             <div class="position-relative">
                 <img class="img-fluid rounded-circle position-absolute position-absolute bottom-0 start-0" src="assets/images/galerias.png" alt="Galerías Guadalajara" width="10%">
             </div>
             <div class="d-flex justify-content-between mt-2">
-                <h5 class="card-title">Galerias Guadalajara</h5></div>
+                <h5 class="card-title">{{directory.name}}</h5></div>
         </div>
     </div>
 </div>
 <div class="row d-flex justify-content-center align-items-center py-4">
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+    <div class="col-lg-3 col-md-6 col-sm-6 mb-4" *ngFor="let member of directory.members">
         <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
+            <img  *ngFor="let img of member.images;let first = first" [hidden]="!first" [src]="img.base64" alt="">
             <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">El Chido</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Zara</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">H&M</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Abercrombie</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Levis</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Dockers</h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-        <div class="card shadow-sm">
-            <img src="assets/images/clothes01.jpg" alt="">
-            <div class="card-body">
-                <a href="">
-                    <h5 class="card-title">Calvin Klein</h5>
+                <a [routerLink]="['/dashboard/company/',member.id]">
+                    <h5 class="card-title">{{member.name}}</h5>
+                    <p class="card-text">{{member.short_description}}</p>
                 </a>
             </div>
         </div>

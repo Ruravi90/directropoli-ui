@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     console.log(JSON.stringify(this.form.value, null, 2));
     this.authService.register(this.form.value).then(r=>{
       this.isLoading = false;
-      this.router.navigate([ '/dashboard' ]);
+      this.router.navigate([ '/dashboard/index' ]);
     }).catch(e=>{
       this.isLoading = false;
       this.isError = true;

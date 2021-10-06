@@ -13,8 +13,6 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.session = this.authService.userValue();
-
-    console.log(this.session);
   }
 
 }

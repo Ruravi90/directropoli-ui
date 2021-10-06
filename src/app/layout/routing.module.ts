@@ -7,6 +7,7 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { CompanyComponent } from '../pages/company/company.component';
 import { MemberComponent } from '../pages/member/member.component';
 import { RegisterCategoryComponent } from '../pages/register-category/register-category.component';
+import { RegisterDirectoryComponent } from '../pages/register-directory/register-directory.component';
 import { RegisterMemberComponent } from '../pages/register-member/register-member.component';
 import { AuthGuard } from '../auth/auth.guard';
 
@@ -21,11 +22,11 @@ const routes: Routes = [
         component: DashboardComponent,
       },
       {
-        path: 'company',
+        path: 'company/:id',
         component: CompanyComponent,
       },
       {
-        path: 'member',
+        path: 'members/:directoryId',
         component: MemberComponent,
       },
       {
@@ -33,7 +34,11 @@ const routes: Routes = [
         component: RegisterCategoryComponent,
       },
       {
-        path: 'register-member',
+        path: 'register-directory',
+        component: RegisterDirectoryComponent,
+      },
+      {
+        path: 'register-member/:directoryId',
         component: RegisterMemberComponent,
       },
     ],

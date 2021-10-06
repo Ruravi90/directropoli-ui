@@ -24,6 +24,7 @@ export class AuthService {
     }
 
     register(data:any): Promise<any>{
+      delete data.checkPassword;
       return this.http.post<any>(environment.apiBase + "register",data).toPromise().then(data=>{
         var session:any = {};
         session.token = data.token;
