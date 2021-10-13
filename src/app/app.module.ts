@@ -18,6 +18,8 @@ import { NgZorroAntdModule } from './NgZorroAntdModule.module';
 
 import { FontAwesomeModule ,FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 registerLocaleData(es);
 
 
@@ -56,6 +58,7 @@ import { RegisterDirectoryComponent } from './pages/register-directory/register-
     IconsProviderModule,
     FontAwesomeModule,
     NgZorroAntdModule,
+    ImageCropperModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

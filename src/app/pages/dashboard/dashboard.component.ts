@@ -19,4 +19,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getImg(d:Directory){
+    return  d.images?.find(i=> i.description == 'header')?.base64;
+  }
+
 }

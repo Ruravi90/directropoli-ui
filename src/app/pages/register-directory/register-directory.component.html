@@ -6,7 +6,7 @@
   <div class="col-lg-12 mb-2">
     <div class="card shadow-sm">
         <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <form [formGroup]="form">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control"
                     formControlName="name"
@@ -23,17 +23,54 @@
                   placeholder="Descripcion del directorio"></textarea>
                   <label for="floatingDescription">Descripcion del directorio</label>
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Imagen destacada</label>
-                    <input class="form-control" type="file"
-                    id="formFile"
-                    formControlName="base64"
-                    name="base64"
-                    (change)="getBase64($event)">
+                <div class="row mb-3">
+                    <label for="formFile" class="form-label">Carga de imagenes</label>
+                    <div class="col-lg-6 mb-2">
+                      <nz-upload (nzChange)="handleHeaderChange($event)"
+                      nzListType="picture"
+                      [nzDisabled]="false">
+                        <button nz-button>
+                          <i nz-icon nzType="upload"></i>
+                          Subir img del encabezado
+                        </button>
+                      </nz-upload>
+                    </div>
+                    <div class="col-lg-6 mb-2">
+                      <nz-upload (nzChange)="handleProfileChange($event)"
+                      nzListType="picture"
+                      [nzDisabled]="false">
+                        <button nz-button>
+                          <i nz-icon nzType="upload"></i>
+                          Subir img del perfil
+                        </button>
+                      </nz-upload>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-6 mb-2">
+                    <label for="formFile" class="form-label">Imagen del encabezado</label>
+                    <image-cropper class="cropImg"
+                      [imageFile]="headeImageChangeEvent"
+                      [maintainAspectRatio]="true"
+                      [aspectRatio]="4 / 2"
+                      format="png"
+                      (imageCropped)="headeImageCropped($event)">
+                    </image-cropper>
                   </div>
-                  <div class="d-flex justify-content-end mt-4">
+                  <div class="col-lg-6 mb-2">
+                    <label for="formFile" class="form-label">Imagen del perfil</label>
+                    <image-cropper class="cropImg"
+                    [imageFile]="profileImageChangeEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="3 / 3"
+                    format="png"
+                    (imageCropped)="profileImageCropped($event)">
+                  </image-cropper>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
                     <a class="btn btn-outline-danger me-1" href="">Cancelar</a>
-                    <button type="submit" class="btn btn-primary ms-1">Guardar categoría</button>
+                    <button type="submit" class="btn btn-primary ms-1" (click)="onSubmit()">Guardar</button>
                 </div>
             </form>
         </div>

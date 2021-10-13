@@ -26,4 +26,8 @@ export class MemberComponent implements OnInit {
     });
   }
 
+  getImg(description:string){
+    return  this.directory.images?.find(i=> i.description ==description)?.base64;
+  }
+
 }
