@@ -48,6 +48,14 @@ export class AuthService {
       });
     }
 
+    reset_password(data:any): Promise<any>{
+      return this.http.post<any>(environment.apiBase + "reset_password",data).toPromise().then(data=>{
+        return data;
+      });
+    }
+
+
+
     logout(){
       this.http.post(environment.apiBase + "logout",null).subscribe(data=>{
         localStorage.removeItem("SessionUser");
