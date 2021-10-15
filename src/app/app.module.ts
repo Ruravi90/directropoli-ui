@@ -34,6 +34,8 @@ import { RegisterMemberComponent } from './pages/register-member/register-member
 import { CompanyComponent } from './pages/company/company.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RegisterDirectoryComponent } from './pages/register-directory/register-directory.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { RegisterDirectoryComponent } from './pages/register-directory/register-
     RegisterMemberComponent,
     CompanyComponent,
     DashboardComponent,
-    RegisterDirectoryComponent
+    RegisterDirectoryComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

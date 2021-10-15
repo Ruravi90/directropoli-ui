@@ -19,6 +19,7 @@
       placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
+
     <div class="mb-3" *ngIf="isError">
       <nz-alert nzType="error" nzMessage="Correo o contraseña incorrecta" nzShowIcon></nz-alert>
     </div>
@@ -30,6 +31,11 @@
         name="remember-me"
         > Remember me
       </label>
+    </div>
+    <div class="form-floating">
+      <a aria-current="page" [routerLink]="['/reset-password']">
+        Reset password
+      </a>
     </div>
 
     <button class="w-100 btn btn-lg btn-primary" nz-button [nzLoading]="isLoading" nzShape="circle"  type="submit">Sign in</button>

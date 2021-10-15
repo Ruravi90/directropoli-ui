@@ -36,6 +36,18 @@ export class AuthService {
       });
     }
 
+    change_password(data:any): Promise<any>{
+      return this.http.post<any>(environment.apiBase + "change_password",data).toPromise().then(data=>{
+        var session:any = {};
+        session.token = data.token;
+        session.user = {};
+        session.user.id = data.user.id;
+        session.user.name = data.user.name;
+        localStorage.setItem("SessionUser",JSON.stringify(session));
+        return data;
+      });
+    }
+
     logout(){
       this.http.post(environment.apiBase + "logout",null).subscribe(data=>{
         localStorage.removeItem("SessionUser");
