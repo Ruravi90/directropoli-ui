@@ -5,6 +5,7 @@ import { RegisterComponent  } from './pages/register/register.component';
 import { ResetPasswordComponent  } from './pages/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { LandingComponent  } from './pages/landing/landing.component';
+import { SharedDirectoryComponent  } from './pages/shared-directory/shared-directory.component';
 
 import { AuthGuard } from './auth/auth.guard';
 import { RememberGuard } from './auth/remember.guard';
@@ -30,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'landing', component: LandingComponent,
+  },
+  {
+    path: 'shared-directory/:directoryId', component: SharedDirectoryComponent,
   },
   {
     path: 'dashboard',

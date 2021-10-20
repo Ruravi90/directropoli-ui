@@ -1,0 +1,39 @@
+<div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Resultados de la búsqueda</h1>
+</div>
+
+<div class="row"  *ngFor="let d of directories">
+    <div class="col-lg-4 my-4" *ngFor="let m of d.members">
+        <div class="card shadow-sm">
+            <div class="card-header text-muted border-bottom-0">
+              {{d.name}}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h2 class="lead"><b>{{m.manager}}</b></h2>
+                        <p class="text-muted text-sm"><b>About: {{m.short_description}}</b></p>
+                        <ul class="ml-4 mb-0 fa-ul text-muted">
+                            <li class="small"><span class="fa-li"><i
+                                        class="fas fa-lg fa-building"></i></span> Address: {{m.address}}</li>
+                            <li class="small"><span class="fa-li"><i
+                                        class="fas fa-lg fa-phone"></i></span> Phone #: {{m.phone}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-4 text-center">
+                        <img class="img-fluid rounded-circle" [src]="getImg(m)"
+                            alt="" width="50%">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="text-end">
+                    <a [routerLink]="['/dashboard/company/',m.id]" class="btn btn-sm btn-primary">
+                        <i class="fas fa-user"></i> View Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

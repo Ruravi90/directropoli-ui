@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { MainModule } from './layout/main.module';
+
+
 import { AppComponent } from './app.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { es_ES } from 'ng-zorro-antd/i18n';
@@ -36,6 +40,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RegisterDirectoryComponent } from './pages/register-directory/register-directory.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ResultSearchComponent } from './pages/result-search/result-search.component';
+import { SharedDirectoryComponent } from './pages/shared-directory/shared-directory.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +56,9 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
     DashboardComponent,
     RegisterDirectoryComponent,
     ResetPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ResultSearchComponent,
+    SharedDirectoryComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +71,7 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
     FontAwesomeModule,
     NgZorroAntdModule,
     ImageCropperModule,
+    MainModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

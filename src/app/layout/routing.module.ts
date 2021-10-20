@@ -9,6 +9,7 @@ import { MemberComponent } from '../pages/member/member.component';
 import { RegisterCategoryComponent } from '../pages/register-category/register-category.component';
 import { RegisterDirectoryComponent } from '../pages/register-directory/register-directory.component';
 import { RegisterMemberComponent } from '../pages/register-member/register-member.component';
+import { ResultSearchComponent } from '../pages/result-search/result-search.component';
 import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: 'register-member/:directoryId',
         component: RegisterMemberComponent,
+      },
+      {
+        path: 'result-shared/:shared',
+        component: ResultSearchComponent,
       },
     ],
    },

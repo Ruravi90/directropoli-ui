@@ -22,6 +22,12 @@ export class DirectoryService {
   withMembers(id:number): Observable<Directory[]> {
     return this.http.get<Directory[]>(environment.apiBase + "directories/" + id + "/members")
   }
+  search(data:any): Observable<Directory[]> {
+    return this.http.post<Directory[]>(environment.apiBase + "directories/find/",data)
+  }
+  directoryPublic(directoryId:any): Observable<Directory> {
+    return this.http.get<Directory>(environment.apiBase + "directories/find/"+directoryId)
+  }
   create(directory:Directory): Observable<Directory> {
     return this.http.post<Directory>(environment.apiBase + "directories",directory);
   }

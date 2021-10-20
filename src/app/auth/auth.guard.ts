@@ -12,9 +12,16 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
 
-    this.authService.isAuthenticated().catch(r=>{
+    this.authService.isAuthenticated().then((r:any)=>{
+      if(r.status == 400 || r.status == 401){
+        localStorage.removeItem("SessionUser");
+        this.router.navigateByUrl("/login");
+        return false;
+      }
+      return true
+    }).catch(r=>{
       localStorage.removeItem("SessionUser");
-      this.router.navigateByUrl("/landing");
+      this.router.navigateByUrl("/login");
       return false;
     });
 

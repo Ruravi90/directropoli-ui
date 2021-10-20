@@ -12,6 +12,7 @@ import { AuthService } from '../../auth/auth.service';
 export class ResetPasswordComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
+  isSend = false;
   isError=false;
   isLoading=false;
   token!:String|null;
@@ -48,6 +49,7 @@ export class ResetPasswordComponent implements OnInit {
 
     this.authService.reset_password(this.form.value).then(r=>{
       this.isLoading = false;
+      this.isSend = true;
       //this.router.navigate([ '/dashboard/index' ]);
     }).catch(e=>{
       this.isLoading = false;
@@ -61,4 +63,7 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
+  backLogin(){
+    this.router.navigate(['login']);
+  }
 }
