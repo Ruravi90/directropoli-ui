@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { AuthService } from '../../auth/auth.service';
@@ -14,13 +14,16 @@ export class SigninComponent implements OnInit {
   submitted = false;
   isError=false;
   isLoading=false;
+  backUrl:String|null = null;
 
   constructor(private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private notification: NzNotificationService) {}
 
   ngOnInit(): void {
+    this.backUrl = this.route.snapshot.paramMap.get("backUrl");
     this.form = this.formBuilder.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -50,7 +53,12 @@ export class SigninComponent implements OnInit {
     this.authService.login(this.form.value).then(r=>{
       if(this.form.value.rememberme){localStorage.setItem("isRememberMe","true");}
       this.isLoading = false;
-      this.router.navigate([ '/dashboard/index' ]);
+      if(this.backUrl != null){
+        this.router.navigate([ this.backUrl ]);
+      }else{
+        this.router.navigate([ '/dashboard/index' ]);
+      }
+
     }).catch(e=>{
       this.isLoading = false;
       this.isError = true;

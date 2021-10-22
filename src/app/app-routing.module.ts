@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate:[RememberGuard]
   },
   {
+    path: 'signin/:backUrl',
+    component: SigninComponent,
+    canActivate:[RememberGuard]
+  },
+  {
     path: 'register',
     component: RegisterComponent
   },

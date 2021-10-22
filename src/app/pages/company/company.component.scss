@@ -1,4 +1,12 @@
 .card-img-top{
   height: 300px;
   max-height: 300px;
+  object-fit: cover;
+}
+.d-grid{
+  img{
+    object-fit: cover;
+    height: 300px;
+    max-height: 300px;
+  }
 }
