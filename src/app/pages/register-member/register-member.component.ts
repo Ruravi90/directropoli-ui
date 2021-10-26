@@ -40,6 +40,8 @@ export class RegisterMemberComponent implements OnInit {
       this.loadDirectory = true;
     });
 
+
+
     this.form = this.formBuilder.group(
       {
         name: ['', [Validators.required]],
@@ -61,6 +63,8 @@ export class RegisterMemberComponent implements OnInit {
     this.cs.categories().toPromise().then(r=>{
       this.categories = r;
     });
+
+
 
   }
 
@@ -114,7 +118,7 @@ export class RegisterMemberComponent implements OnInit {
 
     this.ms.create(this.member).toPromise().then(r=>{
       this.isLoading = false;
-      this.router.navigate([ '/dashboard/index' ]);
+      this.router.navigate([ '/dashboard/members', this.directoryId]);
     }).catch(e=>{
       this.isLoading = false;
     });

@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
 
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 @Component({
   selector: 'app-member',
   templateUrl: './member.component.html',
@@ -13,8 +15,10 @@ export class MemberComponent implements OnInit {
   directory: Directory = Object.assign(new Directory());
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private ds: DirectoryService
+    private ds: DirectoryService,
+    private nzMessageService: NzMessageService
     ) { }
 
   ngOnInit(): void {
@@ -28,6 +32,12 @@ export class MemberComponent implements OnInit {
 
   getImg(description:string){
     return  this.directory.images?.find(i=> i.description ==description)?.base64;
+  }
+
+  confirmDelete(d: Directory){
+    this.ds.delete(this.directoryId).toPromise().then(r=>{
+      this.router.navigate([ '/dashboard/index' ]);
+    });
   }
 
 }
