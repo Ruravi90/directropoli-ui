@@ -24,6 +24,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.session = this.authService.userValue();
+    console.log(this.session);
     this.form = this.formBuilder.group(
       {
         search: ['', [Validators.required]],
@@ -39,5 +40,9 @@ export class MainComponent implements OnInit {
     this.router.navigate(['dashboard/result-shared',this.form.value.search]);
   }
 
+
+  logout(){
+    this.authService.logout();
+  }
 
 }

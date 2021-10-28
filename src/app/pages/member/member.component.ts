@@ -4,6 +4,7 @@ import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NullVisitor } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-member',
@@ -12,7 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class MemberComponent implements OnInit {
   directoryId!:number;
-  directory: Directory = Object.assign(new Directory());
+  directory: Directory | null = null;
 
   constructor(
     private router: Router,
@@ -22,6 +23,7 @@ export class MemberComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    console.log("Init directory",this.directory);
     this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
     console.log("parameter",this.directoryId);
     this.ds.withMembers(this.directoryId).toPromise().then(r=>{
@@ -31,7 +33,7 @@ export class MemberComponent implements OnInit {
   }
 
   getImg(description:string){
-    return  this.directory.images?.find(i=> i.description ==description)?.base64;
+    return  this.directory!.images?.find(i=> i.description ==description)?.base64;
   }
 
   confirmDelete(d: Directory){

@@ -23,6 +23,9 @@ export class MemberService {
   create(member:Member): Observable<Member> {
     return this.http.post<Member>(environment.apiBase + "members",member);
   }
+  addImages(member:Member): Observable<Member> {
+    return this.http.post<Member>(environment.apiBase + "members",member);
+  }
   update(id:number,member:Member): Observable<Member> {
     return this.http.put<Member>(environment.apiBase + "members/"+id,member);
   }
