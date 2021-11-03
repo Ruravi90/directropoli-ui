@@ -11,6 +11,7 @@ import { RegisterDirectoryComponent } from '../pages/register-directory/register
 import { RegisterMemberComponent } from '../pages/register-member/register-member.component';
 import { ResultSearchComponent } from '../pages/result-search/result-search.component';
 import { SharedDirectoryComponent } from '../pages/shared-directory/shared-directory.component';
+import { SettingComponent } from '../pages/setting/setting.component';
 import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
@@ -47,7 +48,10 @@ const routes: Routes = [
         path: 'result-search/:shared',
         component: ResultSearchComponent,
       },
-
+      {
+        path: 'settings',
+        component: SettingComponent,
+      },
     ],
    },
 ];

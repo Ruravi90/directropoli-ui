@@ -5,9 +5,12 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MemberService }  from '../../service/member.service';
 import { CategoryService }  from '../../service/category.service';
 import { DirectoryService }  from '../../service/directory.service';
+import { UtilService }  from '../../service/util.service';
 import { Member }  from '../../models/member';
 import { Category }  from '../../models/category';
 import { Directory }  from '../../models/directory';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { NzUploadChangeParam,NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-register-member',
@@ -24,6 +27,12 @@ export class RegisterMemberComponent implements OnInit {
   member: Member = Object.assign(new Member());
   directory: Directory = Object.assign(new Directory());
   categories: Array<Category> = new Array<Category>() ;
+  headeImageChangeEvent : any = '';
+  headerImage : any = '';
+  profileImageChangeEvent : any = '';
+  profileImage : any = '';
+  fileListHeader: NzUploadFile[] = [];
+  fileListProfile: NzUploadFile[] = [];
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -31,6 +40,7 @@ export class RegisterMemberComponent implements OnInit {
     private notification: NzNotificationService,
     private ms: MemberService,
     private ds: DirectoryService,
+    private us: UtilService,
     private cs: CategoryService) { }
 
   ngOnInit(): void {
@@ -83,6 +93,43 @@ export class RegisterMemberComponent implements OnInit {
     }
   }
 
+  handleHeaderChange(info: NzUploadChangeParam): void {
+    if (info.file.status !== 'uploading') {
+      this.headerImage = '';
+      this.headeImageChangeEvent='';
+      if(info.fileList.length > 0){
+        this.headeImageChangeEvent = info.file.originFileObj;
+      }
+    }
+    if (info.file.status === 'done') {
+    }
+    else if (info.file.status === 'error') {
+    }
+  }
+  handleProfileChange(info: NzUploadChangeParam): void {
+    if (info.file.status !== 'uploading') {
+      this.profileImage = '';
+      this.profileImageChangeEvent='';
+      if(info.fileList.length > 0){
+        this.profileImageChangeEvent = info.file.originFileObj;
+      }
+    }
+    if (info.file.status === 'done') {
+    }
+    else if (info.file.status === 'error') {
+    }
+  }
+
+
+  headeImageCropped(event: ImageCroppedEvent) {
+    this.headerImage = event.base64;
+  }
+
+  profileImageCropped(event: ImageCroppedEvent) {
+    this.profileImage = event.base64;
+  }
+
+
   onSubmit(): void {
     this.submitted = true;
 
@@ -108,6 +155,21 @@ export class RegisterMemberComponent implements OnInit {
     this.member.phone = this.form.value.phone;
     this.member.directory_id = this.form.value.directory_id;
     this.member.category_id = this.form.value.category_id;
+
+    this.member.images = [];
+    if(this.headerImage !== ''){
+      this.member.images.push({ base64 : this.headerImage, description:'header' });
+    }
+    else{
+      this.member.images.push({ base64 : this.us.defaultHeader, description:'header' });
+    }
+
+    if(this.profileImage !== ''){
+      this.member.images.push({ base64 : this.profileImage, description:'profile' });
+    }
+    else{
+      this.member.images.push({ base64 : this.us.defaultProfile, description:'profile' });
+    }
 
 
     this.ms.create(this.member).toPromise().then(r=>{

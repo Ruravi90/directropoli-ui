@@ -42,6 +42,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ResultSearchComponent } from './pages/result-search/result-search.component';
 import { SharedDirectoryComponent } from './pages/shared-directory/shared-directory.component';
+import { SettingComponent } from './pages/setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { SharedDirectoryComponent } from './pages/shared-directory/shared-direct
     ResetPasswordComponent,
     ChangePasswordComponent,
     ResultSearchComponent,
-    SharedDirectoryComponent
+    SharedDirectoryComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,

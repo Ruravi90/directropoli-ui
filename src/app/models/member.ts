@@ -1,6 +1,8 @@
+import { NULL_EXPR } from "@angular/compiler/src/output/output_ast";
 import { MemberImages } from "./member_images";
+import { Promotion } from "./promotion";
 export class Member {
-  id?: number;
+  id?: number|null;
   name?: string;
   short_description?: string;
   facebook?: string;
@@ -19,4 +21,5 @@ export class Member {
   created_at?: string;
   updated_at?: string;
   images?: Array<MemberImages>;
+  promotions?: Array<Promotion>;
 }

@@ -24,7 +24,10 @@ export class MemberService {
     return this.http.post<Member>(environment.apiBase + "members",member);
   }
   addImages(member:Member): Observable<Member> {
-    return this.http.post<Member>(environment.apiBase + "members",member);
+    return this.http.post<Member>(environment.apiBase + "members/addImages",member);
+  }
+  addPromotions(member:Member): Observable<Member> {
+    return this.http.post<Member>(environment.apiBase + "members/addPromotions",member);
   }
   update(id:number,member:Member): Observable<Member> {
     return this.http.put<Member>(environment.apiBase + "members/"+id,member);
@@ -33,3 +36,4 @@ export class MemberService {
     return this.http.delete<number>(environment.apiBase + "members/"+id);
   }
 }
+

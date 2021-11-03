@@ -37,10 +37,17 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/theme.less",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
@@ -114,8 +121,8 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/moment/min/moment.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           }

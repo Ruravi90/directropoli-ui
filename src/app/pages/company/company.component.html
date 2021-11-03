@@ -2,20 +2,19 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">{{member.name}} </h1>
     <div class="d-flex align-items-center">
-      <div class="form-check form-switch me-2">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Hacerlo público</label>
-      </div>
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle ms-1" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          Menu
+          Men&uacute;
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalFlayer">
-              Enviar flyer</a></li>
+          <li><a class="dropdown-item" (click)="isVisiblePromotion=true">
+            Agregar promoci&oacute;n</a></li>
           <li>
-            <hr class="dropdown-divider">
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalFlayer">
+            Enviar promoci&oacute;n</a></li>
+          <li>
+          <hr class="dropdown-divider">
           </li>
           <li><a class="dropdown-item" >Actualizar</a></li>
           <li>
@@ -33,10 +32,10 @@
   <div class="col-lg-8">
     <div class="col-lg-12 mb-2">
       <div class="card shadow-sm">
-          <img [src]="member.images![0].base64" class="card-img-top img-gluid" alt="Galerías Guadalajara">
+          <img [src]="getImg('header')" class="card-img-top img-gluid" alt="Galerías Guadalajara">
           <div class="card-body">
               <div class="position-relative">
-                  <img class="img-fluid rounded-circle position-absolute position-absolute bottom-0 start-0" src="assets/images/galerias.png" alt="Galerías Guadalajara" width="10%">
+                  <img class="img-fluid rounded-circle position-absolute position-absolute bottom-0 start-0" [src]="getImg('profile')" width="10%">
               </div>
               <div class="d-flex justify-content-between mt-2">
                   <div>
@@ -44,7 +43,6 @@
                       <p class="small-text">{{member.short_description}}</p>
                   </div>
                   <div>
-                      <p class="h6 text-end"><a href="">Zapaterias</a></p>
                       <ul class="nav">
                         <li class="nav-item">
                           <a class="nav-link" href="{{member.facebook}}"><i class="fab fa-facebook"></i></a>
@@ -90,20 +88,24 @@
                     <div class="tab-pane fade" id="v-pills-media" role="tabpanel" aria-labelledby="v-pills-media-tab">
                       <div class="row d-flex justify-content-center">
                         <div class="col-lg-12 bg-light rounded p-3 m-4">
-                          <div class="mb-3">
-                            <label for="formFileMultiple" class="form-label">Sube tus fotos</label>
-                            <input class="form-control" type="file" id="formFileMultiple" (change)="getBase64($event)" multiple>
-                          </div>
+                          <nz-upload
+                              nzType="drag"
+                              [nzMultiple]="false"
+                              [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+                              (nzChange)="handleChangeMultimedia($event)" >
+                              <p class="ant-upload-drag-icon">
+                                <i nz-icon nzType="inbox"></i>
+                              </p>
+                              <p class="ant-upload-text">Clic o arrastra para agregar la imagen</p>
+                            </nz-upload>
                         </div>
                       </div>
                       <div class="d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-                        <a data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 my-2">
-                          <img class="img-fluid img-thumbnail"
+                        <img class="img-fluid img-thumbnail"
                           nz-image
                           nzSrc="{{img.base64}}"
                           alt=""
-                          *ngFor="let img of member.images" >
-                        </a>
+                          *ngFor="let img of getMultimedia('multimedia')" >
                       </div>
                     </div>
                   </div>
@@ -124,77 +126,86 @@
         </div>
       </div>
     </div>
-    <!--
+
     <div class="col-lg-12 my-4">
       <div class="card shadow-sm">
         <div class="mt-4 mb-2 ms-3">
           <h4 class="card-title">Tus promociones:</h4>
         </div>
         <div class="card-body">
-          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="assets/images/shoes01.jpg" class="d-block w-100 rounded" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                  <h6 class="text-muted">Zapatos Hugo Boss Azules en Talla 28</h6>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div class="col-lg-8">
-                      <p class="text-muted">Suela de Caucho Zapatos Derby en piel de becerro con suela de piel completa.</p>
-                      <a href="">33 1234 5678</a>
-                    </div>
-                    <div class="col-lg-4">
-                      <p class="text-end"><small>Vigencia:<br>13/ago/21</small></p>
-                    </div>
-                  </div>
+          <nz-carousel nzAutoPlay class="promotions-slider">
+            <div nz-carousel-content *ngFor="let promo of  member.promotions">
+              <img
+                nz-image
+                nzSrc="{{promo.base64}}"
+                class="d-block w-100 rounded promotion">
+                <div class="content-slider row">
+                  <div class="col"><small>Vigencia:<br>{{promo.validity}}</small></div>
                 </div>
-              </div>
-                <div class="carousel-item">
-                <img src="assets/images/shoes01.jpg" class="d-block w-100 rounded" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                  <h6 class="text-muted">Zapatos Hugo Boss Azules en Talla 28</h6>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div class="col-lg-8">
-                      <p class="text-muted">Suela de Caucho Zapatos Derby en piel de becerro con suela de piel completa.</p>
-                      <a href="">33 1234 5678</a>
-                    </div>
-                    <div class="col-lg-4">
-                      <p class="text-end"><small>Vigencia:<br>13/ago/21</small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="assets/images/shoes01.jpg" class="d-block w-100 rounded" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                  <h6 class="text-muted">Zapatos Hugo Boss Azules en Talla 28</h6>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div class="col-lg-8">
-                      <p class="text-muted">Suela de Caucho Zapatos Derby en piel de becerro con suela de piel completa.</p>
-                      <a href="">33 1234 5678</a>
-                    </div>
-                    <div class="col-lg-4">
-                      <p class="text-end"><small>Vigencia:<br>13/ago/21</small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
+          </nz-carousel>
         </div>
       </div>
     </div>
-    -->
 
   </div>
 </div>
+
+<!-- Modal modalAddPromotion-->
+<form nz-form [formGroup]="formPromotion" >
+  <nz-modal [(nzVisible)]="isVisiblePromotion" nzTitle="The first Modal">
+    <ng-container *nzModalContent>
+      <div class="row">
+        <div class="form-floating mb-3">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor selecciona la vigencia">
+              <nz-date-picker
+                nzShowTime
+                nzPlaceHolder="Vigencia"
+                nzFormat="yyyy-MM-dd HH:mm:ss"
+                formControlName="validity">
+              </nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="mb-3">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Agrega una descripcion">
+              <nz-textarea-count [nzMaxCharacterCount]="100">
+                <textarea rows="4"
+                formControlName="description"
+                name="description"
+                placeholder="Descripcion"
+                nz-input></textarea>
+              </nz-textarea-count>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="mb-3">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Agrega una imagen">
+              <nz-upload
+                nzType="drag"
+                [nzMultiple]="false"
+                [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+                (nzChange)="handleChangePromotion($event)" >
+                <p class="ant-upload-drag-icon">
+                  <i nz-icon nzType="inbox"></i>
+                </p>
+                <p class="ant-upload-text">Clic o arrastra para agregar la imagen</p>
+              </nz-upload>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </ng-container>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" nzDanger (click)="handlePromotionCancel()">Cancelar</button>
+      <button nz-button nzType="primary" (click)="onSubmitPromotion()">Submit</button>
+    </div>
+  </nz-modal>
+</form>
+
 
 <!-- Modal Flyer-->
 <div class="modal fade" id="modalFlayer" tabindex="-1" aria-labelledby="modalFlayer" aria-hidden="true">

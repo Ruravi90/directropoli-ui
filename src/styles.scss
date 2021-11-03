@@ -12,3 +12,13 @@
 @import 'assets/css/style.css';
 
 
+.cdk-overlay-container {
+  z-index: 1100!important;
+  .cdk-overlay-connected-position-bounding-box {
+    z-index: 1100!important;
+    .cdk-overlay-pane{
+      z-index: 1100!important;
+    }
+
+  }
+}
