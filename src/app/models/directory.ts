@@ -11,4 +11,5 @@ export class Directory {
   updated_at?: string;
   images?: Array<DirectoryImages>;
   members?: Array<Member>;
+  isPublic?: boolean;
 }

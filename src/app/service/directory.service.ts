@@ -28,6 +28,9 @@ export class DirectoryService {
   directoryPublic(directoryId:any): Observable<Directory> {
     return this.http.get<Directory>(environment.apiBase + "directories/find/"+directoryId)
   }
+  changeIsPublic(directory:Directory): Observable<Directory> {
+    return this.http.put<Directory>(environment.apiBase + "directories/isPublic/"+directory.id,{isPublic: directory.isPublic})
+  }
   create(directory:Directory): Observable<Directory> {
     return this.http.post<Directory>(environment.apiBase + "directories",directory);
   }

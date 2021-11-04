@@ -4,7 +4,6 @@ import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NullVisitor } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-member',
@@ -19,16 +18,13 @@ export class MemberComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private ds: DirectoryService,
-    private nzMessageService: NzMessageService
+    private message: NzMessageService
     ) { }
 
   ngOnInit(): void {
-    console.log("Init directory",this.directory);
     this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
-    console.log("parameter",this.directoryId);
     this.ds.withMembers(this.directoryId).toPromise().then(r=>{
       this.directory = r[0];
-      console.log("Directory",r[0]);
     });
   }
 
@@ -39,6 +35,15 @@ export class MemberComponent implements OnInit {
   confirmDelete(d: Directory){
     this.ds.delete(this.directoryId).toPromise().then(r=>{
       this.router.navigate([ '/dashboard/index' ]);
+    });
+  }
+
+  changeIsPublic($event:any){
+
+    this.directory!.isPublic = !this.directory!.isPublic;
+
+    this.ds.changeIsPublic(this.directory!).toPromise().then(r=>{
+      this.message.create('success', `El directorio ${ this.directory!.name } ahora es ${ this.directory!.isPublic ? 'publico' : 'privado' }`);
     });
   }
 

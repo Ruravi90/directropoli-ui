@@ -3,7 +3,7 @@
     <h1 class="h2">Miembros</h1>
     <div class="d-flex align-items-center">
       <div class="form-check form-switch me-2">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <input class="form-check-input"  [checked]="directory.isPublic" type="checkbox" role="switch" id="flexSwitchCheckDefault" (change)="changeIsPublic($event)">
         <label class="form-check-label" for="flexSwitchCheckDefault">Hacerlo público</label>
       </div>
       <div class="dropdown">
