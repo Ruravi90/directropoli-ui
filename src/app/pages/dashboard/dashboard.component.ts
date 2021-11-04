@@ -10,12 +10,14 @@ import { Directory }  from '../../models/directory';
 export class DashboardComponent implements OnInit {
 
   directories:Array<Directory> = new Array<Directory>();
+  isLoading=true;
 
   constructor(private ds: DirectoryService) { }
 
   ngOnInit(): void {
     this.ds.directories().toPromise().then(r=>{
       this.directories = r;
+      this.isLoading = false;
     });
   }
 

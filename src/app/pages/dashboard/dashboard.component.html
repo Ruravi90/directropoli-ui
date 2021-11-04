@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Directorios</h1> <a class="btn btn-primary" [routerLink]="['/dashboard/register-directory']">Nuevo directorio</a>
 </div>
 <div class="row d-flex justify-content-center align-items-center py-4">
@@ -15,7 +15,9 @@
     </div>
 </div>
 
-<nz-skeleton [nzLoading]="directories.length == 0" [nzActive]="true" [nzAvatar]="true">
+<nz-empty *ngIf="directories.length == 0 && !isLoading" nzNotFoundImage="simple"></nz-empty>
+
+<nz-skeleton [nzLoading]="isLoading" [nzActive]="true" [nzAvatar]="true">
   <ng-template #starAction>
     <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
     156
@@ -29,7 +31,7 @@
     2
   </ng-template>
 </nz-skeleton>
-<nz-skeleton [nzLoading]="directories.length == 0" [nzActive]="true" [nzAvatar]="true">
+<nz-skeleton [nzLoading]="isLoading" [nzActive]="true" [nzAvatar]="true">
   <ng-template #starAction>
     <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
     156
@@ -43,7 +45,7 @@
     2
   </ng-template>
 </nz-skeleton>
-<nz-skeleton [nzLoading]="directories.length == 0" [nzActive]="true" [nzAvatar]="true">
+<nz-skeleton [nzLoading]="isLoading" [nzActive]="true" [nzAvatar]="true">
   <ng-template #starAction>
     <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
     156

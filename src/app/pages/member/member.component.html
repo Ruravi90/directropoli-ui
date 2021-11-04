@@ -1,6 +1,6 @@
 <div *ngIf="directory != null">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">{{directory.name}} </h1>
+    <h1 class="h2">Miembros</h1>
     <div class="d-flex align-items-center">
       <div class="form-check form-switch me-2">
         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
@@ -45,6 +45,7 @@
       </div>
   </div>
   <div class="row d-flex justify-content-center align-items-center py-4">
+      <nz-empty *ngIf="directory?.members?.length == 0" nzNotFoundImage="simple"></nz-empty>
       <div class="col-lg-3 col-md-6 col-sm-6 mb-4" *ngFor="let member of directory.members">
           <div class="card shadow-sm">
               <img class="img-thumbnail" *ngFor="let img of member.images;let first = first" [hidden]="!first" [src]="img.base64" alt="">
@@ -83,6 +84,7 @@
     </div>
   </div>
 </div>
+
 
 
 <nz-skeleton [nzLoading]="directory == null" [nzActive]="true" [nzAvatar]="true" class="mt-5">
