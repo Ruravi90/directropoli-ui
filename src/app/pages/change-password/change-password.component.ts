@@ -79,7 +79,7 @@ export class ChangePasswordComponent implements OnInit {
     this.authService.change_password(data).then(r=>{
       if(this.form.value.rememberme){localStorage.setItem("isRememberMe","true");}
       this.isLoading = false;
-      this.router.navigate([ '/dashboard/index' ]);
+      this.router.navigate([ '/private/index' ]);
     }).catch(e=>{
 
       if(e.status == 401){

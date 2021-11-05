@@ -1,12 +1,12 @@
  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Directorios</h1> <a class="btn btn-primary" [routerLink]="['/dashboard/register-directory']">Nuevo directorio</a>
+  <h1 class="h2">Directorios</h1> <a class="btn btn-primary" [routerLink]="['/private/register-directory']">Nuevo directorio</a>
 </div>
 <div class="row d-flex justify-content-center align-items-center py-4">
     <div class="col-lg-3 col-md-6 col-sm-6 mb-4" *ngFor="let directory of directories">
         <div class="card shadow-sm">
             <img class="img-thumbnail" [src]="getImg(directory)" alt="{{directory.name}}">
             <div class="card-body">
-                <a [routerLink]="['/dashboard/members/',directory.id]">
+                <a [routerLink]="['/private/members/',directory.id]">
                     <h5 class="card-title">{{directory.name}}</h5>
                     <p class="card-text">{{directory.description}}</p>
                 </a>

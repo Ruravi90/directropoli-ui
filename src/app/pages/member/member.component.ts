@@ -34,7 +34,7 @@ export class MemberComponent implements OnInit {
 
   confirmDelete(d: Directory){
     this.ds.delete(this.directoryId).toPromise().then(r=>{
-      this.router.navigate([ '/dashboard/index' ]);
+      this.router.navigate([ '/private/index' ]);
     });
   }
 

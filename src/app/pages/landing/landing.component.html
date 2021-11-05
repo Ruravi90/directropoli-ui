@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-default">
   <div class="container">
     <div class="d-flex justify-content-between flex-grow-1">
-      <a class="navbar-brand" href="#"> <img src="assets/images/logo.svg" alt="Directropoli"></a>
+      <a class="navbar-brand" > <img src="assets/images/logo.svg" alt="Directropoli"></a>
       <div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar7">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -28,10 +28,10 @@
         loading="lazy">
     </div>
     <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-      <h1 class="display-1 fw-bold lh-1 mb-3">Muestre su directorio maravillosamente.</h1>
+      <h1 class="main-title fw-bold lh-1 mb-3">Muestre sus directorios profesionalmente.</h1>
       <p class="lead">Cree su directorio más rápido con esta aplicación web!</p>
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a type="button" class="btn btn-primary btn px-4 me-md-2">Demo</a>
+        <button type="button" class="btn btn-primary px-4 me-md-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Demo</button>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@
       <h2 class="display-5 fw-bold lh-1 pb-2 border-bottom">Crea tus directorios</h2>
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-        <div class="col-lg-12 d-flex justify-content-start flex-wrap">
+        <div class="col-lg-12 col-md-12 d-flex justify-content-start flex-wrap">
           <h4><span class="badge bg-secondary m-2">Amigos</span></h4>
           <h4><span class="badge bg-secondary m-2">Eventos</span></h4>
           <h4><span class="badge bg-secondary m-2">Centros comerciales</span></h4>
@@ -139,7 +139,7 @@
         <div class="col">
           <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">Gratis</h4>
+              <h4 class="my-0 fw-normal">Gratis (Siempre)</h4>
             </div>
             <div class="card-body">
               <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mes</small></h1>
@@ -156,13 +156,7 @@
               <h4 class="my-0 fw-normal">Pro</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$200<small class="text-muted fw-light">/mes</small></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>20 users included</li>
-                <li>10 GB of storage</li>
-                <li>Priority email support</li>
-                <li>Help center access</li>
-              </ul>
+              <h1 class="card-title pricing-card-title">$299<small class="text-muted fw-light">/mes</small></h1>
               <button type="button" class="w-100 btn btn-lg btn-primary">Comienza hoy</button>
             </div>
           </div>
@@ -176,13 +170,13 @@
               <thead>
                 <tr>
                   <th style="width: 34%;"></th>
-                  <th style="width: 22%;">Free</th>
-                  <th style="width: 22%;">Enterprise</th>
+                  <th style="width: 22%;">Gratis</th>
+                  <th style="width: 22%;">Pro</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row" class="text-start">Public</th>
+                  <th scope="row" class="text-start">Directorios Privados</th>
                   <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-check" viewBox="0 0 16 16">
                       <path
@@ -196,7 +190,7 @@
                     </svg></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="text-start">Private</th>
+                  <th scope="row" class="text-start">Directorios Públicos</th>
                   <td></td>
 
                   <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -209,21 +203,13 @@
 
               <tbody>
                 <tr>
-                  <th scope="row" class="text-start">Permissions</th>
-                  <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-check" viewBox="0 0 16 16">
-                      <path
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
-                    </svg></td>
+                  <th scope="row" class="text-start">Núm. de Directorios</th>
+                  <td>3</td>
 
-                  <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-check" viewBox="0 0 16 16">
-                      <path
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
-                    </svg></td>
+                  <td>Ilimitados</td>
                 </tr>
                 <tr>
-                  <th scope="row" class="text-start">Sharing</th>
+                  <th scope="row" class="text-start">Promociones</th>
                   <td></td>
 
                   <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -233,9 +219,22 @@
                     </svg></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="text-start">Unlimited members</th>
-                  <td></td>
+                  <th scope="row" class="text-start">Compartirlos</th>
+                  <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-check" viewBox="0 0 16 16">
+                    <path
+                      d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                  </svg></td>
 
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-check" viewBox="0 0 16 16">
+                    <path
+                      d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                  </svg></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="text-start">Tarjeta de Presentación Digital</th>
+                  <td></td>
                   <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-check" viewBox="0 0 16 16">
                       <path
@@ -243,13 +242,10 @@
                     </svg></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="text-start">Extra security</th>
-                  <td></td>
-                  <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-check" viewBox="0 0 16 16">
-                      <path
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
-                    </svg></td>
+                  <th scope="row" class="text-start">Núm. de Directorios</th>
+                  <td>10</td>
+
+                  <td>Ilimitados</td>
                 </tr>
               </tbody>
             </table>
@@ -357,5 +353,33 @@
             </svg></a></li>
       </ul>
     </footer>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <video
+          id="my-video"
+          class="video-js"
+          controls
+          preload="auto"
+          width="768"
+          height="432"
+          data-setup="{}" >
+          <source src="https://directropoli.com/assets/video/directropoli.mp4" type="video/mp4" />
+          <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank"  >supports HTML5 video</a >
+          </p>
+        </video>
+      </div>
+    </div>
   </div>
 </div>

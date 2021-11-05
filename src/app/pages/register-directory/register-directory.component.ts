@@ -108,7 +108,7 @@ export class RegisterDirectoryComponent implements OnInit {
 
     this.ds.create(this.directory).toPromise().then(r=>{
       this.isLoading = false;
-      this.router.navigate([ '/dashboard/index' ]);
+      this.router.navigate([ '/private/index' ]);
     }).catch(e=>{
       this.isLoading = false;
     });

@@ -174,7 +174,7 @@ export class RegisterMemberComponent implements OnInit {
 
     this.ms.create(this.member).toPromise().then(r=>{
       this.isLoading = false;
-      this.router.navigate([ '/dashboard/members', this.directoryId]);
+      this.router.navigate([ '/private/members', this.directoryId]);
     }).catch(e=>{
       this.isLoading = false;
     });

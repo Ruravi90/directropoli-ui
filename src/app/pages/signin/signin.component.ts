@@ -56,7 +56,7 @@ export class SigninComponent implements OnInit {
       if(this.backUrl != null){
         this.router.navigate([ this.backUrl ]);
       }else{
-        this.router.navigate([ '/dashboard/index' ]);
+        this.router.navigate([ '/private/index' ]);
       }
 
     }).catch(e=>{

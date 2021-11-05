@@ -41,9 +41,13 @@ const routes: Routes = [
     path: 'shared-directory/:directoryId', component: SharedDirectoryComponent,
   },
   {
-    path: 'dashboard',
+    path: 'private',
     loadChildren: () => import('./layout/main.module').then(m => m.MainModule),
     canActivate:[AuthGuard]
+  },
+  {
+    path: 'public',
+    loadChildren: () => import('./layout/public.module').then(m => m.PublicModule),
   },
   {
     path: '**',

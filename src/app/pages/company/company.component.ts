@@ -23,6 +23,7 @@ export class CompanyComponent implements OnInit {
   tempBase64: string ='';
   isVisiblePromotion = false;
   isConfirmLoading = false;
+  tempMultimedia = false;
 
   constructor(
     private router: Router,
@@ -65,29 +66,32 @@ export class CompanyComponent implements OnInit {
 
   confirmDelete(m:Member ){
     this.ms.delete(m.id!).toPromise().then(r=>{
-      this.router.navigate([ '/dashboard/members',this.id ]);
+      this.router.navigate([ '/private/members',this.id ]);
     });
   }
 
-  handleChangeMultimedia(info: NzUploadChangeParam): void  {
-    if(this.member!.images == null){
-      this.member!.images = [];
+  handleChangeMultimedia({ file, fileList }: NzUploadChangeParam): void  {
+
+    const status = file.status;
+    if (status !== 'uploading') {
+      if(this.member!.images == null){
+        this.member!.images = [];
+      }
+
+      for (const file of fileList) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj!);
+        reader.onload = () => {
+          this.member!.images?.push({ id:null, base64 : reader.result?.toString(), description: 'multimedia' });
+          this.ms.addImages(this.member!).toPromise();
+        };
+        reader.onerror = (error) => {
+          console.log('Error: ', error);
+        };
+      }
     }
 
-    for (const file of info.fileList) {
-      let reader = new FileReader();
-      reader.readAsDataURL(file.originFileObj!);
-      reader.onload = () => {
-        this.member!.images?.push({ id:null, base64 : reader.result?.toString(), description: 'multimedia' });
-      };
-      reader.onerror = (error) => {
-        console.log('Error: ', error);
-      };
-    }
 
-    this.ms.addImages(this.member!).toPromise().then(r=>{
-    }).catch(e=>{
-    });
   }
 
   handleChangePromotion(info: NzUploadChangeParam): void {
@@ -102,10 +106,6 @@ export class CompanyComponent implements OnInit {
           console.log('Error: ', error);
         };
       }
-    }
-    if (info.file.status === 'done') {
-    }
-    else if (info.file.status === 'error') {
     }
   }
 

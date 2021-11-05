@@ -43,6 +43,7 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { ResultSearchComponent } from './pages/result-search/result-search.component';
 import { SharedDirectoryComponent } from './pages/shared-directory/shared-directory.component';
 import { SettingComponent } from './pages/setting/setting.component';
+import { IndexComponent } from './public/index/index.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SettingComponent } from './pages/setting/setting.component';
     ChangePasswordComponent,
     ResultSearchComponent,
     SharedDirectoryComponent,
-    SettingComponent
+    SettingComponent,
+    IndexComponent,
   ],
   imports: [
     BrowserModule,

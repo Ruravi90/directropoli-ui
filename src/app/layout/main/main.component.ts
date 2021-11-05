@@ -24,7 +24,6 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.session = this.authService.userValue();
-    console.log(this.session);
     this.form = this.formBuilder.group(
       {
         search: ['', [Validators.required]],

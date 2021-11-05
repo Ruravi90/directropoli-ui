@@ -15,7 +15,7 @@
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#invitacion">
             Enviar invitación</a></li>
           <li>
-          <li><a class="dropdown-item" [routerLink]="['/dashboard/register-member',directory.id]">
+          <li><a class="dropdown-item" [routerLink]="['/private/register-member',directory.id]">
             Nuevo miembro</a></li>
           <li>
           <hr class="dropdown-divider">
@@ -50,7 +50,7 @@
           <div class="card shadow-sm">
               <img class="img-thumbnail" *ngFor="let img of member.images;let first = first" [hidden]="!first" [src]="img.base64" alt="">
               <div class="card-body">
-                  <a [routerLink]="['/dashboard/company/',member.id]">
+                  <a [routerLink]="['/private/company/',member.id]">
                       <h5 class="card-title">{{member.name}}</h5>
                       <p class="card-text">{{member.short_description}}</p>
                   </a>
