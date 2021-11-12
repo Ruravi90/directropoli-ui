@@ -43,7 +43,7 @@ export class MembersPrivateComponent implements OnInit {
   copyUrl() {
 
     if(navigator.clipboard) {
-      navigator.clipboard.writeText(this.getBaseUrl()+ '/public/Invitation/' + this.directory!.shared_code).then(() => {
+      navigator.clipboard.writeText(this.getBaseUrl()+ '/public/invitation/' + this.directory!.shared_code).then(() => {
         this.message.create('success', `Link copiado`);
       })
     } else {
