@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Crear miembro</h1>
+  <h1 class="h2">{{isEdit?'Editar':'Crear'}} miembro</h1>
 </div>
 <div class="col-lg-12">
   <nz-spin [nzSpinning]="isLoading">
@@ -13,6 +13,7 @@
                             <input type="text" class="form-control"
                             id="floatingInput"
                             [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                            [(ngModel)]="member.name"
                             formControlName="name"
                             name="name"
                             placeholder="Nombre del miembro">
@@ -26,6 +27,7 @@
                           <input type="text" class="form-control"
                           id="floatingInput"
                           [ngClass]="{ 'is-invalid': submitted && f.short_description.errors }"
+                          [(ngModel)]="member.short_description"
                           formControlName="short_description"
                           name="short_description"
                           placeholder="Descripción corta">
@@ -37,6 +39,7 @@
                           <select class="form-select disabled"
                           id="floatingSelect"
                           [ngClass]="{ 'is-invalid': submitted && f.directory_id.errors }"
+                          [(ngModel)]="member.directory_id"
                           formControlName="directory_id"
                           name="directory_id"
                           [disabled]="true"
@@ -52,10 +55,11 @@
                           <select class="form-select"
                           id="floatingSelect"
                           [ngClass]="{ 'is-invalid': submitted && f.category_id.errors }"
+                          [(ngModel)]="member.category_id"
                           formControlName="category_id"
                           name="category_id"
                           aria-label="Floating label select example">
-                              <option value="{{item.id}}" *ngFor="let item of categories">{{item.name}}</option>
+                              <option [value]="item.id" *ngFor="let item of categories">{{item.name}}</option>
                           </select>
                           <label for="floatingSelect">Selecciona una categoría</label>
                         </div>
@@ -67,6 +71,7 @@
                           <span class="input-group-text" id="basic-addon1">Facebook</span>
                           <input type="text" class="form-control"
                           [ngClass]="{ 'is-invalid': submitted && f.facebook.errors }"
+                          [(ngModel)]="member.facebook"
                           formControlName="facebook"
                           name="facebook"
                           aria-label="Facebook"
@@ -78,6 +83,7 @@
                           <span class="input-group-text" id="basic-addon1">Twitter</span>
                           <input type="text" class="form-control"
                           [ngClass]="{ 'is-invalid': submitted && f.twitter.errors }"
+                          [(ngModel)]="member.twitter"
                           formControlName="twitter"
                           name="twitter"
                           aria-label="Twitter"
@@ -89,6 +95,7 @@
                           <span class="input-group-text" id="basic-addon1">Instagram</span>
                           <input type="text" class="form-control"
                           [ngClass]="{ 'is-invalid': submitted && f.instagram.errors }"
+                          [(ngModel)]="member.instagram"
                           formControlName="instagram"
                           name="instagram"
                           aria-label="Instagram"
@@ -100,6 +107,7 @@
                             <span class="input-group-text" id="basic-addon1">Whatsapp</span>
                             <input type="text" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.whatsapp.errors }"
+                            [(ngModel)]="member.whatsapp"
                             formControlName="whatsapp"
                             name="whatsapp"
                             aria-label="Whatsapp"
@@ -114,6 +122,7 @@
                         placeholder="Descripción"
                         id="floatingTextarea"
                         [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                        [(ngModel)]="member.description"
                         formControlName="description"
                         name="description"
                         ></textarea>
@@ -126,6 +135,7 @@
                             <span class="input-group-text" id="basic-addon1">Representante</span>
                             <input type="text" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.manager.errors }"
+                            [(ngModel)]="member.manager"
                             formControlName="manager"
                             name="manager"
                             aria-label="Facebook" aria-describedby="basic-addon1">
@@ -136,6 +146,7 @@
                             <span class="input-group-text" id="basic-addon1">Puesto</span>
                             <input type="text" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.job_possion.errors }"
+                            [(ngModel)]="member.job_possion"
                             formControlName="job_possion"
                             name="job_possion"
                             aria-label="Twitter" aria-describedby="basic-addon1">
@@ -146,6 +157,7 @@
                             <span class="input-group-text" id="basic-addon1">Teléfono</span>
                             <input type="text" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+                            [(ngModel)]="member.phone"
                             formControlName="phone"
                             name="phone"
                             aria-label="phone" aria-describedby="basic-addon1">
@@ -156,6 +168,7 @@
                             <span class="input-group-text" id="basic-addon1">Correo</span>
                             <input type="text" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                            [(ngModel)]="member.email"
                             formControlName="email"
                             name="email"
                             aria-label="email" aria-describedby="basic-addon1">
@@ -168,6 +181,7 @@
                           <span class="input-group-text" id="basic-addon1">Dirección</span>
                           <input type="text" class="form-control"
                           [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                          [(ngModel)]="member.address"
                           formControlName="address"
                           name="address"
                           aria-label="addres" aria-describedby="basic-addon1">
@@ -222,7 +236,8 @@
                 </div>
               </div>
                 <div class="d-flex justify-content-end mt-4">
-                    <a class="btn btn-outline-danger me-1" [routerLink]="['/dashboard/members', directoryId]">Cancelar</a>
+                    <a *ngIf="type !=='join'" class="btn btn-outline-danger me-1" [routerLink]="['/private/members', directoryId]">Cancelar</a>
+                    <a *ngIf="type === 'join' " class="btn btn-outline-danger me-1" [routerLink]="['/public/invitation', code]">Cancelar</a>
                     <button type="submit" class="btn btn-primary ms-1" (click)="onSubmit()">Guardar</button>
                 </div>
             </form>

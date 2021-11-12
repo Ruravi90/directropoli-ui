@@ -1,0 +1,76 @@
+<div *ngIf="directory != null">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Miembros</h1>
+    <a class="btn btn-primary" [routerLink]="['/public/form-member', 'join', code, directory.id]">Unete</a>
+  </div>
+  <div class="col-lg-12">
+      <div class="card shadow-sm">
+          <img [src]="getImg('header')" class="card-img-top img-gluid" alt="Galerías Guadalajara">
+          <div class="card-body">
+              <div class="position-relative">
+                  <img [src]="getImg('profile')" class="img-fluid rounded-circle position-absolute position-absolute bottom-0 start-0" width="10%">
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                  <h5 class="card-title">{{directory!.name}}</h5></div>
+          </div>
+      </div>
+  </div>
+  <div class="row d-flex justify-content-center align-items-center py-4">
+      <nz-empty *ngIf="directory?.members?.length == 0" nzNotFoundImage="simple"></nz-empty>
+      <div class="col-lg-3 col-md-6 col-sm-6 mb-4" *ngFor="let member of directory.members">
+          <div class="card shadow-sm">
+              <img class="img-thumbnail" *ngFor="let img of member.images;let first = first" [hidden]="!first" [src]="img.base64" alt="">
+              <div class="card-body">
+                  <a [routerLink]="['/public/member/',member.id]">
+                      <h5 class="card-title">{{member.name}}</h5>
+                      <p class="card-text">{{member.short_description}}</p>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<nz-skeleton [nzLoading]="directory == null" [nzActive]="true" [nzAvatar]="true" class="mt-5">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="directory == null" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="directory == null" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>

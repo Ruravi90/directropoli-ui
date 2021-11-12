@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterDirectoryComponent } from './register-directory.component';
+import { MembersPrivateComponent } from './members.component';
 
-describe('RegisterDirectoryComponent', () => {
-  let component: RegisterDirectoryComponent;
-  let fixture: ComponentFixture<RegisterDirectoryComponent>;
+describe('MemberPrivateComponent', () => {
+  let component: MembersPrivateComponent;
+  let fixture: ComponentFixture<MembersPrivateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisterDirectoryComponent ]
+      declarations: [ MembersPrivateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterDirectoryComponent);
+    fixture = TestBed.createComponent(MembersPrivateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

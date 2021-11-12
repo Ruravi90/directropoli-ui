@@ -3,7 +3,8 @@ export interface Promotion {
   member_id?: string;
   base64?: string;
   description?: string;
-  validity?: string;
+  validity_ini?: string;
+  validity_end?: string;
   created_at?: string;
   updated_at?: string;
 }

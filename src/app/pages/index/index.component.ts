@@ -3,11 +3,11 @@ import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-private-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class IndexPrivateComponent implements OnInit {
 
   directories:Array<Directory> = new Array<Directory>();
   isLoading=true;

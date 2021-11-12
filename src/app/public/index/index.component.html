@@ -1,1 +1,60 @@
-<p>index works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Directorios publicos</h1>
+</div>
+<div class="row d-flex justify-content-center align-items-center py-4">
+    <div class="col-lg-3 col-md-6 col-sm-6 mb-4" *ngFor="let directory of directories">
+        <div class="card shadow-sm">
+            <img class="img-thumbnail" [src]="getImg(directory)" alt="{{directory.name}}">
+            <div class="card-body">
+                <a [routerLink]="['/public/members/',directory.id]">
+                    <h5 class="card-title">{{directory.name}}</h5>
+                    <p class="card-text">{{directory.description}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<nz-skeleton [nzLoading]="isLoading" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="isLoading" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="isLoading" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>

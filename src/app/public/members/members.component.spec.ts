@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MemberPrivateComponent } from './member.component';
+import { MembersPublicComponent } from './members.component';
 
-describe('MemberPrivateComponent', () => {
-  let component: MemberPrivateComponent;
-  let fixture: ComponentFixture<MemberPrivateComponent>;
+describe('MembersPublicComponent', () => {
+  let component: MembersPublicComponent;
+  let fixture: ComponentFixture<MembersPublicComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MemberPrivateComponent ]
+      declarations: [ MembersPublicComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MemberPrivateComponent);
+    fixture = TestBed.createComponent(MembersPublicComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

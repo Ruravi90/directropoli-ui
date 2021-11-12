@@ -1,0 +1,22 @@
+.card-img-top{
+  height: 200px;
+  max-height: 200px;
+  object-fit: cover;
+}
+.card{
+  .img-thumbnail{
+    height: 150px;
+    max-height: 150px;
+    object-fit: cover;
+  }
+}
+
+.card-body.bg-light{
+  button{
+    background-color: transparent;
+    border: 0;
+    &:hover{
+      color: cornflowerblue;
+    }
+  }
+}

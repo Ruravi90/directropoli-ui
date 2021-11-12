@@ -15,19 +15,25 @@ export class MemberService {
   constructor(private http: HttpClient) { }
 
   members(): Observable<Member[]> {
-    return this.http.get<Member[]>(environment.apiBase + "members")
+    return this.http.get<Member[]>(environment.apiBase + "members");
   }
   member(id:number): Observable<Member> {
-    return this.http.get<Member>(environment.apiBase + "members/" + id)
+    return this.http.get<Member>(environment.apiBase + "members/" + id);
+  }
+  publicMember(id:number): Observable<Member> {
+    return this.http.post<Member>(environment.apiBase + "members/public/" + id,{});
   }
   create(member:Member): Observable<Member> {
     return this.http.post<Member>(environment.apiBase + "members",member);
   }
+  createPublic(member:Member): Observable<Member> {
+    return this.http.post<Member>(environment.apiBase + "members/public/join",member);
+  }
   addImages(member:Member): Observable<Member> {
-    return this.http.post<Member>(environment.apiBase + "members/addImages",member);
+    return this.http.post<Member>(environment.apiBase + "members/addImages",{ id: member.id, images: member.images });
   }
   addPromotions(member:Member): Observable<Member> {
-    return this.http.post<Member>(environment.apiBase + "members/addPromotions",member);
+    return this.http.post<Member>(environment.apiBase + "members/addPromotions",{ id: member.id, promotions: member.promotions });
   }
   update(id:number,member:Member): Observable<Member> {
     return this.http.put<Member>(environment.apiBase + "members/"+id,member);

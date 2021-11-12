@@ -9,6 +9,7 @@ export class Directory {
   role_id?: string;
   created_at?: string;
   updated_at?: string;
+  shared_code?: string;
   images?: Array<DirectoryImages>;
   members?: Array<Member>;
   isPublic?: boolean;

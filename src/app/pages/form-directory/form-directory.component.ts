@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { DirectoryService }  from '../../service/directory.service';
 import { UtilService }  from '../../service/util.service';
@@ -9,16 +9,18 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
 @Component({
-  selector: 'app-register-directory',
-  templateUrl: './register-directory.component.html',
-  styleUrls: ['./register-directory.component.scss']
+  selector: 'app-form-directory',
+  templateUrl: './form-directory.component.html',
+  styleUrls: ['./form-directory.component.scss']
 })
-export class RegisterDirectoryComponent implements OnInit {
+export class FormDirectoryComponent implements OnInit {
 
   form!: FormGroup;
   submitted = false;
   isLoading = false;
-  directory : Directory = Object.assign(new Directory());
+  editId:Number = 0;
+  isEdit:boolean = false;
+  directory : Directory = new Directory();
   headeImageChangeEvent : any = '';
   headerImage : any = '';
   profileImageChangeEvent : any = '';
@@ -29,11 +31,19 @@ export class RegisterDirectoryComponent implements OnInit {
     private ds: DirectoryService,
     private us: UtilService,
     private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private notification: NzNotificationService,
     ) { }
 
   ngOnInit(): void {
+    this.editId = Number(this.route.snapshot.paramMap.get("Id"));
+
+    this.ds.directory(this.editId).toPromise().then(r=>{
+      this.directory = r;
+      this.isEdit = true;
+    });
+
     this.form = this.formBuilder.group(
       {
         name: ['', [Validators.required]],
@@ -41,6 +51,11 @@ export class RegisterDirectoryComponent implements OnInit {
       }
     );
   }
+
+  getImg(type:String){
+    return  this.directory.images?.find(i=> i.description == type)?.base64;
+  }
+
 
   handleHeaderChange(info: NzUploadChangeParam): void {
     if (info.file.status !== 'uploading') {
@@ -88,30 +103,39 @@ export class RegisterDirectoryComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.directory.name = this.form.value.name;
-    this.directory.description = this.form.value.description;
+    if(!this.isEdit)
+      this.directory.images = [];
 
-    this.directory.images = [];
     if(this.headerImage !== ''){
-      this.directory.images.push({ base64 : this.headerImage, description:'header' });
+      this.directory.images!.push({ base64 : this.headerImage, description:'header' });
     }
     else{
-      this.directory.images.push({ base64 : this.us.defaultHeader, description:'header' });
+      this.directory.images!.push({ base64 : this.us.defaultHeader, description:'header' });
     }
 
     if(this.profileImage !== ''){
-      this.directory.images.push({ base64 : this.profileImage, description:'profile' });
+      this.directory.images!.push({ base64 : this.profileImage, description:'profile' });
     }
     else{
-      this.directory.images.push({ base64 : this.us.defaultProfile, description:'profile' });
+      this.directory.images!.push({ base64 : this.us.defaultProfile, description:'profile' });
     }
 
-    this.ds.create(this.directory).toPromise().then(r=>{
-      this.isLoading = false;
-      this.router.navigate([ '/private/index' ]);
-    }).catch(e=>{
-      this.isLoading = false;
-    });
+    if(!this.isEdit){
+      this.ds.create(this.directory).toPromise().then(r=>{
+        this.isLoading = false;
+        this.router.navigate([ '/private/index' ]);
+      }).catch(e=>{
+        this.isLoading = false;
+      });
+    }
+    else{
+      this.ds.update(this.directory).toPromise().then(r=>{
+        this.isLoading = false;
+        this.router.navigate([ '/private/index' ]);
+      }).catch(e=>{
+        this.isLoading = false;
+      });
+    }
   }
 
 }

@@ -13,19 +13,23 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NzUploadChangeParam,NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
-  selector: 'app-register-member',
-  templateUrl: './register-member.component.html',
-  styleUrls: ['./register-member.component.scss']
+  selector: 'app-form-member',
+  templateUrl: './form-member.component.html',
+  styleUrls: ['./form-member.component.scss']
 })
-export class RegisterMemberComponent implements OnInit {
+export class FormMemberComponent implements OnInit {
 
   form!: FormGroup;
   submitted = false;
   isLoading = false;
   loadDirectory = false;
+  type!:string | null;
+  code!:string | null;
   directoryId!:number;
-  member: Member = Object.assign(new Member());
-  directory: Directory = Object.assign(new Directory());
+  Id!:number;
+  isEdit:boolean = false;
+  member: Member = new Member();
+  directory: Directory = new Directory();
   categories: Array<Category> = new Array<Category>() ;
   headeImageChangeEvent : any = '';
   headerImage : any = '';
@@ -44,11 +48,27 @@ export class RegisterMemberComponent implements OnInit {
     private cs: CategoryService) { }
 
   ngOnInit(): void {
-    this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
-    this.ds.directory(this.directoryId).toPromise().then(r=>{
-      this.directory = r;
-      this.loadDirectory = true;
+    this.cs.categories().toPromise().then(r=>{
+      this.categories = r;
     });
+
+    this.type = this.route.snapshot.paramMap.get("type");
+    this.code = this.route.snapshot.paramMap.get("code");
+    this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
+    this.Id = Number(this.route.snapshot.paramMap.get("Id"));
+
+    if(this.directoryId){
+      this.getDirectory(this.directoryId);
+    }
+    else if(this.Id !== 0){
+      this.isEdit = true;
+      this.ms.member(this.Id).toPromise().then(r=>{
+        this.member = r;
+        this.getDirectory(this.member.directory_id!);
+        this.loadDirectory = true;
+      });
+    }
+
     this.form = this.formBuilder.group(
       {
         name: ['', [Validators.required]],
@@ -67,13 +87,17 @@ export class RegisterMemberComponent implements OnInit {
         category_id: ['', [Validators.required]]
       }
     );
-    this.cs.categories().toPromise().then(r=>{
-      this.categories = r;
-    });
+
   }
 
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
+  }
+
+  getDirectory(id:number){
+    this.ds.directory(id).toPromise().then(r=>{
+      this.directory = r;
+    });
   }
 
   getBase64(event:any) {
@@ -133,28 +157,11 @@ export class RegisterMemberComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
 
-    console.log(this.form);
-
     if (this.form.invalid || this.isLoading) {
       return;
     }
 
     this.isLoading = true;
-
-    this.member.name = this.form.value.name;
-    this.member.short_description = this.form.value.short_description;
-    this.member.facebook = this.form.value.facebook;
-    this.member.twitter = this.form.value.twitter;
-    this.member.instagram = this.form.value.instagram;
-    this.member.whatsapp = this.form.value.whatsapp;
-    this.member.description = this.form.value.description;
-    this.member.manager = this.form.value.manager;
-    this.member.job_possion = this.form.value.job_possion;
-    this.member.address = this.form.value.address;
-    this.member.email = this.form.value.email;
-    this.member.phone = this.form.value.phone;
-    this.member.directory_id = this.form.value.directory_id;
-    this.member.category_id = this.form.value.category_id;
 
     this.member.images = [];
     if(this.headerImage !== ''){
@@ -172,9 +179,9 @@ export class RegisterMemberComponent implements OnInit {
     }
 
 
-    this.ms.create(this.member).toPromise().then(r=>{
+    this.ms.createPublic(this.member).toPromise().then(r=>{
       this.isLoading = false;
-      this.router.navigate([ '/private/members', this.directoryId]);
+      //this.router.navigate([ '/private/members', this.directoryId]);
     }).catch(e=>{
       this.isLoading = false;
     });

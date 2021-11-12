@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Crear directorio</h1>
+  <h1 class="h2">{{ isEdit ? 'Editar':'Crear'}} directorio</h1>
 </div>
 <div class="row d-flex justify-content-center align-items-top py-4 text">
   <nz-spin [nzSpinning]="isLoading">
@@ -10,6 +10,7 @@
               <form [formGroup]="form">
                   <div class="form-floating mb-3">
                       <input type="text" class="form-control"
+                      [(ngModel)]="directory.name"
                       formControlName="name"
                       name="name"
                       id="floatingName"
@@ -18,6 +19,7 @@
                   </div>
                   <div class="form-floating mb-3">
                     <textarea type="text" class="form-control"
+                    [(ngModel)]="directory.description"
                     formControlName="description"
                     name="description"
                     id="floatingDescription"
@@ -25,7 +27,27 @@
                     <label for="floatingDescription">Descripcion del directorio</label>
                   </div>
                   <div class="row mb-3">
-                      <label for="formFile" class="form-label">Carga de imagenes</label>
+                    <div class="col-lg-6 mb-2">
+                      <img
+                          nz-image
+                          width="200px"
+                          height="200px"
+                          nzSrc="{{getImg('header')}}"
+                          alt=""
+                        />
+                    </div>
+                    <div class="col-lg-6 mb-2">
+                      <img
+                          nz-image
+                          width="200px"
+                          height="200px"
+                          nzSrc="{{getImg('profile')}}"
+                          alt=""
+                        />
+                    </div>
+                </div>
+                  <div class="row mb-3">
+                      <label for="formFile" class="form-label">{{ isEdit ? 'Cambiar':'Cargar'}} de imagenes</label>
                       <div class="col-lg-6 mb-2">
                         <nz-upload (nzChange)="handleHeaderChange($event)"
                         nzListType="picture"
@@ -70,7 +92,7 @@
                     </div>
                   </div>
                   <div class="d-flex justify-content-end mt-4">
-                      <a class="btn btn-outline-danger me-1" [routerLink]="['/dashboard/index']">Cancelar</a>
+                      <a class="btn btn-outline-danger me-1" [routerLink]="['/private/index']">Cancelar</a>
                       <button type="submit" class="btn btn-primary ms-1" (click)="onSubmit()">Guardar</button>
                   </div>
               </form>

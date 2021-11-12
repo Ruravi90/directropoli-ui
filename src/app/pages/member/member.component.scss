@@ -1,12 +1,39 @@
 .card-img-top{
-  height: 200px;
   max-height: 200px;
   object-fit: cover;
 }
-.card{
-  .img-thumbnail{
-    height: 150px;
-    max-height: 150px;
+.d-grid{
+  img{
     object-fit: cover;
+    max-height: 200px;
   }
 }
+
+.modal-body{
+  .form-floating > label {
+    padding: 1rem 1.75rem;
+  }
+}
+
+.promotions-slider{
+  height: 400px!important;
+  max-height: 500px!important;
+}
+
+
+.slick-slide{
+  .promotion{
+    object-fit: cover;
+  }
+  .content-slider{
+    position: absolute;
+    padding-left: 10px;
+    top: 0px;
+    width: 100%;
+    color: #fff;
+    small{
+      max-height: 20px;
+    }
+  }
+}
+

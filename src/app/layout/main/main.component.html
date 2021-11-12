@@ -41,11 +41,11 @@
               <img src="assets/images/avatar.svg" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-              <li><a class="dropdown-item" >Profile</a></li>
+              <li><a class="dropdown-item"  [routerLink]="['/private/settings']">Perfil</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" (click)="logout()" >Sign out</a></li>
+              <li><a class="dropdown-item" (click)="logout()" >Cerrar sesion</a></li>
             </ul>
           </div>
         </li>

@@ -10,6 +10,7 @@ import { SharedDirectoryComponent  } from './pages/shared-directory/shared-direc
 import { AuthGuard } from './auth/auth.guard';
 import { RememberGuard } from './auth/remember.guard';
 
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/landing' },
   {
@@ -37,17 +38,15 @@ const routes: Routes = [
   {
     path: 'landing', component: LandingComponent,
   },
-  {
-    path: 'shared-directory/:directoryId', component: SharedDirectoryComponent,
-  },
+
   {
     path: 'private',
-    loadChildren: () => import('./layout/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./layout/main/main.module').then(m => m.MainModule),
     canActivate:[AuthGuard]
   },
   {
     path: 'public',
-    loadChildren: () => import('./layout/public.module').then(m => m.PublicModule),
+    loadChildren: () => import('./layout/public/public.module').then(m => m.PublicModule),
   },
   {
     path: '**',

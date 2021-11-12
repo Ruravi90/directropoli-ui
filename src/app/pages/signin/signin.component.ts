@@ -35,7 +35,7 @@ export class SigninComponent implements OnInit {
             Validators.maxLength(40)
           ]
         ],
-        rememberme: ['', []],
+        remember: ['', []],
       }
     );
   }
@@ -51,7 +51,7 @@ export class SigninComponent implements OnInit {
       return;
     }
     this.authService.login(this.form.value).then(r=>{
-      if(this.form.value.rememberme){localStorage.setItem("isRememberMe","true");}
+      if(this.form.value.remember){localStorage.setItem("isRememberMe","true");}
       this.isLoading = false;
       if(this.backUrl != null){
         this.router.navigate([ this.backUrl ]);

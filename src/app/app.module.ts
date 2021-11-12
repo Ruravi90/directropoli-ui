@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { MainModule } from './layout/main.module';
+import { MainModule } from './layout/main/main.module';
+import { PublicModule } from './layout/public/public.module';
 
 
 import { AppComponent } from './app.component';
@@ -32,18 +33,24 @@ import { RegisterComponent  } from './pages/register/register.component';
 import { LandingComponent  } from './pages/landing/landing.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { RegisterCategoryComponent } from './pages/register-category/register-category.component';
-import { MemberComponent } from './pages/member/member.component';
-import { RegisterMemberComponent } from './pages/register-member/register-member.component';
-import { CompanyComponent } from './pages/company/company.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { RegisterDirectoryComponent } from './pages/register-directory/register-directory.component';
+import { RegisterCategoryComponent } from './pages/form-category/register-category.component';
+import { MembersPrivateComponent } from './pages/members/members.component';
+import { FormMemberComponent } from './pages/form-member/form-member.component';
+import { MemberPrivateComponent } from './pages/member/member.component';
+import { IndexPrivateComponent } from './pages/index/index.component';
+import { FormDirectoryComponent } from './pages/form-directory/form-directory.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ResultSearchComponent } from './pages/result-search/result-search.component';
 import { SharedDirectoryComponent } from './pages/shared-directory/shared-directory.component';
 import { SettingComponent } from './pages/setting/setting.component';
-import { IndexComponent } from './public/index/index.component';
+
+import { IndexPublicComponent } from './public/index/index.component';
+import { MembersPublicComponent } from './public/members/members.component';
+import { MemberPublicComponent } from './public/member/member.component';
+
+import { ClipboardModule } from '@angular/cdk/clipboard';
+
 
 @NgModule({
   declarations: [
@@ -52,17 +59,19 @@ import { IndexComponent } from './public/index/index.component';
     RegisterComponent,
     LandingComponent,
     RegisterCategoryComponent,
-    MemberComponent,
-    RegisterMemberComponent,
-    CompanyComponent,
-    DashboardComponent,
-    RegisterDirectoryComponent,
+    MembersPrivateComponent,
+    FormMemberComponent,
+    MemberPrivateComponent,
+    IndexPrivateComponent,
+    FormDirectoryComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,
     ResultSearchComponent,
     SharedDirectoryComponent,
     SettingComponent,
-    IndexComponent,
+    IndexPublicComponent,
+    MembersPublicComponent,
+    MemberPublicComponent
   ],
   imports: [
     BrowserModule,
@@ -74,8 +83,10 @@ import { IndexComponent } from './public/index/index.component';
     IconsProviderModule,
     FontAwesomeModule,
     NgZorroAntdModule,
+    ClipboardModule,
     ImageCropperModule,
     MainModule,
+    PublicModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

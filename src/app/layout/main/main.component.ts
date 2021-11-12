@@ -36,12 +36,15 @@ export class MainComponent implements OnInit {
   }
 
   search() {
-    this.router.navigate(['dashboard/result-shared',this.form.value.search]);
+    this.router.navigate(['private/result-shared',this.form.value.search]);
   }
 
 
   logout(){
-    this.authService.logout();
+    this.authService.logout().then(r=>{
+      localStorage.removeItem("SessionUser");
+      this.router.navigateByUrl("/signin");
+    });
   }
 
 }

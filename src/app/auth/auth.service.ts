@@ -56,13 +56,8 @@ export class AuthService {
 
 
 
-    logout(){
-      this.http.post(environment.apiBase + "logout",null).subscribe(data=>{
-        localStorage.removeItem("SessionUser");
-        return true;
-      },error=>{
-        return false;
-      });
+    logout(): Promise<any> {
+      return this.http.post<any>(environment.apiBase + "logout",null).toPromise();
     }
 
     isAuthenticated(): Promise<any> {

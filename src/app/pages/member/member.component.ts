@@ -1,50 +1,178 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MemberService }  from '../../service/member.service';
+import { Member }  from '../../models/member';
 import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
-
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { MemberImages } from 'src/app/models/member_images';
+import { NzUploadChangeParam,NzUploadFile } from 'ng-zorro-antd/upload';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-member',
   templateUrl: './member.component.html',
   styleUrls: ['./member.component.scss']
 })
-export class MemberComponent implements OnInit {
-  directoryId!:number;
-  directory: Directory | null = null;
+export class MemberPrivateComponent implements OnInit {
+
+  id!:number;
+  member:Member | null = null;
+  directories: Array<Directory> = new Array<Directory>() ;
+  formPromotion!: FormGroup;
+  tempBase64: string ='';
+  isVisiblePromotion = false;
+  isConfirmLoading = false;
+  tempMultimedia = false;
+  tempFileList: NzUploadFile[] = [];
+  moment: any = moment;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private ms: MemberService,
     private ds: DirectoryService,
-    private message: NzMessageService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
-    this.ds.withMembers(this.directoryId).toPromise().then(r=>{
-      this.directory = r[0];
+    this.id = Number(this.route.snapshot.paramMap.get("id"));
+    this.ms.member(this.id).toPromise().then(r=>{
+      this.member = r;
     });
+
+    this.ds.directories().toPromise().then(r=>{
+      this.directories = r;
+    });
+
+    this.formPromotion = this.formBuilder.group(
+      {
+        validity_ini: ['', [Validators.required]],
+        validity_end: ['', [Validators.required]],
+        description: ['',[Validators.required]]
+      }
+    );
+  }
+
+  get fPromotions(): { [key: string]: AbstractControl } {
+    return this.formPromotion.controls;
   }
 
   getImg(description:string){
-    return  this.directory!.images?.find(i=> i.description ==description)?.base64;
+    return  this.member!.images?.find(i=> i.description ==description)?.base64;
   }
 
-  confirmDelete(d: Directory){
-    this.ds.delete(this.directoryId).toPromise().then(r=>{
-      this.router.navigate([ '/private/index' ]);
+  getMultimedia(description:string): Array<MemberImages>{
+    return  this.member!.images!.filter(i=> i.description ==description);
+  }
+
+
+  confirmDelete(m:Member ){
+    this.ms.delete(m.id!).toPromise().then(r=>{
+      this.router.navigate([ '/private/members',this.id ]);
     });
   }
 
-  changeIsPublic($event:any){
+  beforeUploadPromotions = (file: NzUploadFile): boolean => {
+    this.tempFileList = this.tempFileList.concat(file);
+    return false;
+  };
 
-    this.directory!.isPublic = !this.directory!.isPublic;
+  handleChangeMultimedia({ file, fileList }: NzUploadChangeParam): void  {
 
-    this.ds.changeIsPublic(this.directory!).toPromise().then(r=>{
-      this.message.create('success', `El directorio ${ this.directory!.name } ahora es ${ this.directory!.isPublic ? 'publico' : 'privado' }`);
+    const status = file.status;
+    if (status !== 'uploading') {
+      if(this.member!.images == null){
+        this.member!.images = [];
+      }
+
+      for (const file of fileList) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj!);
+        reader.onload = () => {
+          this.member!.images?.push({ id:null, base64 : reader.result?.toString(), description: 'multimedia' });
+          this.ms.addImages(this.member!).toPromise();
+        };
+        reader.onerror = (error) => {
+          console.log('Error: ', error);
+        };
+      }
+    }
+
+
+  }
+
+  handleChangePromotion(info: NzUploadChangeParam): void {
+    if (info.file.status !== 'uploading') {
+      if(info.fileList.length > 0){
+        let reader = new FileReader();
+        reader.readAsDataURL(info.file.originFileObj!);
+        reader.onload = () => {
+          this.tempBase64 = reader.result!.toString();
+        };
+        reader.onerror = (error) => {
+          console.log('Error: ', error);
+        };
+      }
+    }
+  }
+
+  handlePromotionCancel(){
+    this.isVisiblePromotion = false;
+  }
+
+  onSubmitPromotion(){
+
+    for (const i in this.formPromotion.controls) {
+      if (this.formPromotion.controls.hasOwnProperty(i)) {
+        this.formPromotion.controls[i].markAsDirty();
+        this.formPromotion.controls[i].updateValueAndValidity();
+      }
+    }
+
+    if (this.formPromotion.invalid) {
+      return;
+    }
+
+    this.isConfirmLoading = true;
+
+    if(this.member!.promotions == null){
+      this.member!.promotions = [];
+    }
+
+    this.tempFileList.forEach((file: any) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.member!.promotions!.push({
+          id:null,
+          base64 :  reader.result?.toString(),
+          description: this.formPromotion.value.description ,
+          validity_ini: moment(this.formPromotion.value.validity_ini).format("YYYY/MM/DD hh:mm:ss"),
+          validity_end: moment(this.formPromotion.value.validity_end).format("YYYY/MM/DD hh:mm:ss")
+        });
+        this.ms.addPromotions(this.member!).toPromise().then(r=>{
+          this.isConfirmLoading = false;
+          this.isVisiblePromotion = false;
+          this.tempFileList = [];
+          this.formPromotion.reset();
+        });
+      };
+      reader.onerror = (error) => {
+        this.tempFileList = [];
+        return;
+      };
     });
+
+
+  }
+
+  sleep(milliseconds: Number) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
   }
 
 }
