@@ -75,7 +75,7 @@
             <p class="text-center">Envia esta invitación mediante el siguiente código.</p>
             <div class="card">
               <div class="card-body bg-light">
-                {{getBaseUrl()+ '/public/invitation/' + directory!.shared_code}}
+                {{getBaseUrl()}}
                 <button (click)="copyUrl()">
                   <i nz-icon nzType="copy" nz-tooltip nzTooltipTitle="Copiar link" ></i>
                 </button>

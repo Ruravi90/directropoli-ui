@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ClipboardService } from 'ngx-clipboard';
 import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
 
@@ -33,17 +32,18 @@ export class MembersPrivateComponent implements OnInit {
   }
 
   getBaseUrl(){
-    return window.location.origin;
+    return window.location.origin + '/public/invitation/' + this.directory!.shared_code;
   }
 
   getImg(description:string){
     return  this.directory!.images?.find(i=> i.description ==description)?.base64;
   }
 
+
   copyUrl() {
 
     if(navigator.clipboard) {
-      navigator.clipboard.writeText(this.getBaseUrl()+ '/public/invitation/' + this.directory!.shared_code).then(() => {
+      navigator.clipboard.writeText(this.getBaseUrl()).then(() => {
         this.message.create('success', `Link copiado`);
       })
     } else {
@@ -53,7 +53,7 @@ export class MembersPrivateComponent implements OnInit {
 
   sharedWhatsapp(){
     window.open(
-      "whatsapp://send?text=" + this.getBaseUrl()+ '/Invitation/' + this.directory!.shared_code,'_blank'
+      "whatsapp://send?text=" + this.getBaseUrl(),'_blank'
     );
   }
 

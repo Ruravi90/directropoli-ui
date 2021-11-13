@@ -178,10 +178,12 @@ export class FormMemberComponent implements OnInit {
       this.member.images.push({ base64 : this.us.defaultProfile, description:'profile' });
     }
 
-
     this.ms.createPublic(this.member).toPromise().then(r=>{
       this.isLoading = false;
-      //this.router.navigate([ '/private/members', this.directoryId]);
+      if(this.type?.trim() === "" || this.type === null )
+        this.router.navigate([ '/private/members', this.directoryId]);
+      else
+        this.router.navigate([ '/public/invitation', this.code]);
     }).catch(e=>{
       this.isLoading = false;
     });
