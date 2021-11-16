@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { Directory } from '../models/directory';
+import { DirectoryResult } from 'src/app/models/directory-result';
 
 
 @Injectable({
@@ -31,8 +32,8 @@ export class DirectoryService {
   getForCode(code:String): Observable<Directory> {
     return this.http.post<Directory>(environment.apiBase + "directories/public/getForCode",{code: code});
   }
-  search(data:any): Observable<Directory[]> {
-    return this.http.post<Directory[]>(environment.apiBase + "directories/find/", data);
+  search(data:any): Observable<DirectoryResult[]> {
+    return this.http.post<DirectoryResult[]>(environment.apiBase + "directories/find/", data);
   }
   directoryPublic(directoryId:any): Observable<Directory> {
     return this.http.get<Directory>(environment.apiBase + "directories/find/" + directoryId)

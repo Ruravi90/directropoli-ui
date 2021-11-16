@@ -3,37 +3,82 @@
     <h1 class="h2">Resultados de la búsqueda</h1>
 </div>
 
-<div class="row"  *ngFor="let d of directories">
-    <div class="col-lg-4 my-4" *ngFor="let m of d.members">
+<div class="row" *ngIf="results.length > 0">
+    <div class="col-lg-4 my-4" *ngFor="let r of results">
         <div class="card shadow-sm">
             <div class="card-header text-muted border-bottom-0">
-              {{d.name}}
+              <a [routerLink]="['/private/members/',r.d_id]" >
+                {{r.d_name}}
+              </a>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h2 class="lead"><b>{{m.manager}}</b></h2>
-                        <p class="text-muted text-sm"><b>About: {{m.short_description}}</b></p>
+                        <h2 class="lead"><b>{{r.m_manager}}</b></h2>
+                        <p class="text-muted text-sm"><b>Descripci&oacute;n: {{r.m_short_description}}</b></p>
                         <ul class="ml-4 mb-0 fa-ul text-muted">
                             <li class="small"><span class="fa-li"><i
-                                        class="fas fa-lg fa-building"></i></span> Address: {{m.address}}</li>
+                                        class="fas fa-lg fa-building"></i></span> Direcci&oacute;n: {{r.m_address}}</li>
                             <li class="small"><span class="fa-li"><i
-                                        class="fas fa-lg fa-phone"></i></span> Phone #: {{m.phone}}</li>
+                                        class="fas fa-lg fa-phone"></i></span> Tel&eacute;fono #: {{r.m_phone}}</li>
                         </ul>
                     </div>
                     <div class="col-4 text-center">
-                        <img class="img-fluid rounded-circle" [src]="getImg(m)"
+                        <img class="img-fluid rounded-circle" [src]="r.images![0].base64"
                             alt="" width="50%">
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="text-end">
-                    <a [routerLink]="['/dashboard/company/',m.id]" class="btn btn-sm btn-primary">
-                        <i class="fas fa-user"></i> View Profile
+                    <a [routerLink]="['/private/member/',r.m_id]" class="btn btn-sm btn-primary">
+                      Ver tarjeta
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<nz-skeleton [nzLoading]="results.length == 0" [nzActive]="true" [nzAvatar]="true" class="mt-5">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="results.length == 0" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="results.length == 0" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>

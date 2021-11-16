@@ -49,7 +49,7 @@ const routes: Routes = [
         component: FormMemberComponent,
       },
       {
-        path: 'result-search/:shared',
+        path: 'result-search/:search',
         component: ResultSearchComponent,
       },
       {

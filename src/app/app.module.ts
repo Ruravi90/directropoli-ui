@@ -42,7 +42,6 @@ import { FormDirectoryComponent } from './pages/form-directory/form-directory.co
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ResultSearchComponent } from './pages/result-search/result-search.component';
-import { SharedDirectoryComponent } from './pages/shared-directory/shared-directory.component';
 import { SettingComponent } from './pages/setting/setting.component';
 
 import { IndexPublicComponent } from './public/index/index.component';
@@ -67,7 +66,6 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ResetPasswordComponent,
     ChangePasswordComponent,
     ResultSearchComponent,
-    SharedDirectoryComponent,
     SettingComponent,
     IndexPublicComponent,
     MembersPublicComponent,

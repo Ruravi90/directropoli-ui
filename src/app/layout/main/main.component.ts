@@ -36,7 +36,7 @@ export class MainComponent implements OnInit {
   }
 
   search() {
-    this.router.navigate(['private/result-shared',this.form.value.search]);
+    this.router.navigate(['private/result-search',this.form.value.search]);
   }
 
 

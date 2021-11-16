@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
-import { Member } from 'src/app/models/member';
+import { DirectoryResult } from 'src/app/models/directory-result';
 
 @Component({
   selector: 'app-result-search',
@@ -11,21 +11,16 @@ import { Member } from 'src/app/models/member';
 })
 export class ResultSearchComponent implements OnInit {
 
-  directories:Array<Directory> = new Array<Directory>();
+  results:Array<DirectoryResult> = new Array<DirectoryResult>();
 
   constructor(private route: ActivatedRoute,private ds: DirectoryService) { }
 
   ngOnInit(): void {
     let search = this.route.snapshot.paramMap.get("search");
     this.ds.search({search:search}).toPromise().then(r=>{
-      this.directories = r;
+      this.results = r;
     });
   }
 
-  getImg(m:Member){
-    if(m.images!.length > 0)
-      return m.images![0].base64;
-    else return '';
-  }
 
 }
