@@ -7,6 +7,7 @@ import { DirectoryService }  from '../../service/directory.service';
 import { Directory }  from '../../models/directory';
 import { MemberImages } from 'src/app/models/member_images';
 import { NzUploadChangeParam,NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import * as moment from 'moment';
 
 @Component({
@@ -33,6 +34,7 @@ export class MemberPrivateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ms: MemberService,
     private ds: DirectoryService,
+    private message: NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +66,27 @@ export class MemberPrivateComponent implements OnInit {
 
   getMultimedia(description:string): Array<MemberImages>{
     return  this.member!.images!.filter(i=> i.description ==description);
+  }
+
+  getBaseUrl(){
+    return window.location.origin + '/public/card-shared/' + this.member!.shared_code;
+  }
+
+  copyUrl() {
+
+    if(navigator.clipboard) {
+      navigator.clipboard.writeText(this.getBaseUrl()).then(() => {
+        this.message.create('success', `Link copiado`);
+      })
+    } else {
+      this.message.create('error','Browser Not compatible')
+    }
+  }
+
+  sharedWhatsapp(){
+    window.open(
+      "whatsapp://send?text=" + this.getBaseUrl(),'_blank'
+    );
   }
 
 

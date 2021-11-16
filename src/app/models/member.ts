@@ -20,6 +20,7 @@ export class Member {
   user_id?: number;
   created_at?: string;
   updated_at?: string;
+  shared_code?: string;
   images?: Array<MemberImages>;
   promotions?: Array<Promotion>;
 }

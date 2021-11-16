@@ -30,6 +30,10 @@ const routes: Routes = [
         component: MembersPublicComponent,
       },
       {
+        path: 'card-shared/:code',
+        component: MemberPublicComponent,
+      },
+      {
         path: 'form-member/:type/:code/:directoryId',
         component: FormMemberComponent,
       },

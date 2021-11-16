@@ -8,6 +8,9 @@
           Men&uacute;
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalInvitacion">
+            Enviar ficha</a></li>
+          <li>
           <li><a class="dropdown-item" (click)="isVisiblePromotion=true">
             Agregar promoci&oacute;n</a></li>
           <li>
@@ -153,6 +156,37 @@
   </div>
 </div>
 
+<!-- Modal Invitación-->
+<div class="modal fade" id="modalInvitacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row d-flex justify-content-center text-center">
+          <div class="col-lg-10">
+            <p class="text-center">Envia esta invitación mediante el siguiente código.</p>
+            <div class="card">
+              <div class="card-body bg-light">
+                {{getBaseUrl()}}
+                <button (click)="copyUrl()">
+                  <i nz-icon nzType="copy" nz-tooltip nzTooltipTitle="Copiar link" ></i>
+                </button>
+              </div>
+            </div>
+            <p class="my-2">o mediante los enlaces siguientes:</p>
+            <a class="btn btn-primary" (click)="sharedWhatsapp()" >
+              Enviar por whatsapp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal modalAddPromotion-->
 <form nz-form [formGroup]="formPromotion" >
   <nz-modal [(nzVisible)]="isVisiblePromotion" nzTitle="Carga de promociones">
@@ -220,7 +254,6 @@
     </nz-spin>
   </nz-modal>
 </form>
-
 
 <!-- Modal Flyer-->
 <div class="modal fade" id="modalFlayer" tabindex="-1" aria-labelledby="modalFlayer" aria-hidden="true">
