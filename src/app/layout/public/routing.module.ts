@@ -26,14 +26,6 @@ const routes: Routes = [
         component: MemberPublicComponent,
       },
       {
-        path: 'invitation/:code',
-        component: MembersPublicComponent,
-      },
-      {
-        path: 'card-shared/:code',
-        component: MemberPublicComponent,
-      },
-      {
         path: 'form-member/:type/:code/:directoryId',
         component: FormMemberComponent,
       },

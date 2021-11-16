@@ -49,6 +49,7 @@ import { MembersPublicComponent } from './public/members/members.component';
 import { MemberPublicComponent } from './public/member/member.component';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { SharedModule } from './layout/shared/shared.module';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    SharedModule
   ],
   providers: [{
     provide: NZ_I18N,

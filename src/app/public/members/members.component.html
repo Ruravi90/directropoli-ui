@@ -1,7 +1,7 @@
 <div *ngIf="directory != null">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Miembros</h1>
-    <a class="btn btn-primary" [routerLink]="['/public/form-member', 'join', code, directory.id]">Unete</a>
+    <a class="btn btn-primary" *ngIf="code" [routerLink]="['/public/form-member', 'join', code, directory.id]">Unete</a>
   </div>
   <div class="col-lg-12">
       <div class="card shadow-sm">
@@ -21,10 +21,14 @@
           <div class="card shadow-sm">
               <img class="img-thumbnail" *ngFor="let img of member.images;let first = first" [hidden]="!first" [src]="img.base64" alt="">
               <div class="card-body">
-                  <a [routerLink]="['/public/member/',member.id]">
+                  <a  *ngIf="code" [routerLink]="['/shared/member/',member.shared_code]">
                       <h5 class="card-title">{{member.name}}</h5>
                       <p class="card-text">{{member.short_description}}</p>
                   </a>
+                  <a  *ngIf="code == null" [routerLink]="['/public/member/',member.id]">
+                    <h5 class="card-title">{{member.name}}</h5>
+                    <p class="card-text">{{member.short_description}}</p>
+                </a>
               </div>
           </div>
       </div>

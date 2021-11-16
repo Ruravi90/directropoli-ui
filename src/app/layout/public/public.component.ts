@@ -18,6 +18,7 @@ export class PublicComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.form = this.formBuilder.group(
       {
         search: ['', [Validators.required]],

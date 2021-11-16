@@ -18,6 +18,11 @@
 .promotions-slider{
   height: 400px!important;
   max-height: 500px!important;
+  img{
+    object-fit: cover;
+    height: 250px!important;
+    max-height: 250px!important;
+  }
 }
 
 

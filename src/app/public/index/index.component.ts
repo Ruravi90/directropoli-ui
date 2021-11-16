@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DirectoryService }  from '../../service/directory.service';
+import { PublicService }  from '../../service/public.service';
 import { Directory }  from '../../models/directory';
 
 @Component({
@@ -12,10 +12,10 @@ export class IndexPublicComponent implements OnInit {
   directories:Array<Directory> = new Array<Directory>();
   isLoading=true;
 
-  constructor(private ds: DirectoryService) { }
+  constructor(private ps: PublicService) { }
 
   ngOnInit(): void {
-    this.ds.publics().toPromise().then(r=>{
+    this.ps.publics().toPromise().then(r=>{
       this.directories = r;
       this.isLoading = false;
     });

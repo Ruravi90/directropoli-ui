@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DirectoryService }  from '../../service/directory.service';
+import { PublicService }  from '../../service/public.service';
 import { Directory }  from '../../models/directory';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -21,18 +22,19 @@ export class MembersPrivateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private ds: DirectoryService,
+    private ps: PublicService,
     private message: NzMessageService
     ) { }
 
   ngOnInit(): void {
     this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
-    this.ds.withMembers(this.directoryId).toPromise().then(r=>{
+    this.ps.publicWithMembers(this.directoryId).toPromise().then(r=>{
       this.directory = r[0];
     });
   }
 
   getBaseUrl(){
-    return window.location.origin + '/public/invitation/' + this.directory!.shared_code;
+    return window.location.origin + '/shared/directory/' + this.directory!.shared_code;
   }
 
   getImg(description:string){

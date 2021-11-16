@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DirectoryService }  from '../../service/directory.service';
+import { PublicService }  from '../../service/public.service';
 import { Directory }  from '../../models/directory';
 
 @Component({
@@ -16,7 +16,7 @@ export class MembersPublicComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private ds: DirectoryService,
+    private ps: PublicService,
     ) { }
 
   ngOnInit(): void {
@@ -24,13 +24,13 @@ export class MembersPublicComponent implements OnInit {
     this.code = this.route.snapshot.paramMap.get("code");
 
     if(this.directoryId !== 0 && this.directoryId !== null){
-      this.ds.publicWithMembers(this.directoryId).toPromise().then(r=>{
+      this.ps.publicWithMembers(this.directoryId).toPromise().then(r=>{
         this.directory = r[0];
       });
     }
 
     if(this.code !== '' && this.code !== null){
-      this.ds.getForCode(this.code!).toPromise().then(r=>{
+      this.ps.getForCodeDirectory(this.code!).toPromise().then(r=>{
         this.directory = r;
       });
     }

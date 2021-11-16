@@ -5,8 +5,6 @@ import { environment } from '../../environments/environment';
 import { Member } from '../models/member';
 
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,14 +18,8 @@ export class MemberService {
   member(id:number): Observable<Member> {
     return this.http.get<Member>(environment.apiBase + "members/" + id);
   }
-  publicMember(id:number): Observable<Member> {
-    return this.http.post<Member>(environment.apiBase + "members/public/" + id,{});
-  }
   create(member:Member): Observable<Member> {
     return this.http.post<Member>(environment.apiBase + "members",member);
-  }
-  createPublic(member:Member): Observable<Member> {
-    return this.http.post<Member>(environment.apiBase + "members/public/join",member);
   }
   addImages(member:Member): Observable<Member> {
     return this.http.post<Member>(environment.apiBase + "members/addImages",{ id: member.id, images: member.images });

@@ -69,7 +69,7 @@ export class MemberPrivateComponent implements OnInit {
   }
 
   getBaseUrl(){
-    return window.location.origin + '/public/card-shared/' + this.member!.shared_code;
+    return window.location.origin + '/shared/member/' + this.member!.shared_code;
   }
 
   copyUrl() {

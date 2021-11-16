@@ -16,19 +16,17 @@
 }
 
 .promotions-slider{
-  height: 200px!important;
-  line-height: 200px!important;
-}
-
-[nz-carousel-content] {
-  height: 200px!important;
-  line-height: 200px!important;
+  height: 400px!important;
+  max-height: 500px!important;
+  img{
+    object-fit: cover;
+    height: 250px!important;
+    max-height: 250px!important;
+  }
 }
 
 .slick-slide{
   .promotion{
-    height: 200px;
-    max-height: 200px;
     object-fit: cover;
   }
   .content-slider{
@@ -37,6 +35,9 @@
     top: 0px;
     width: 100%;
     color: #fff;
+    small{
+      max-height: 20px;
+    }
   }
 }
 

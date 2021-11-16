@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-xxl navbar-default bg-white" aria-label="Directropoli NavBar">
+  <div class="container">
+    <a [routerLink]="['/landing']" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+      <img class="" src="assets/images/logo.svg" alt="Directropoli">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleXxl"
+      aria-controls="navbarsExampleXxl" aria-expanded="false" aria-label="Toggle navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </svg>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleXxl">
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

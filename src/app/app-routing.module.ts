@@ -48,6 +48,10 @@ const routes: Routes = [
     loadChildren: () => import('./layout/public/public.module').then(m => m.PublicModule),
   },
   {
+    path: 'shared',
+    loadChildren: () => import('./layout/shared/shared.module').then(m => m.SharedModule),
+  },
+  {
     path: '**',
     component: LandingComponent,
     canActivate:[RememberGuard]

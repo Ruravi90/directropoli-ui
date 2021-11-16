@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MemberService }  from '../../service/member.service';
 import { CategoryService }  from '../../service/category.service';
-import { DirectoryService }  from '../../service/directory.service';
+import { PublicService }  from '../../service/public.service';
 import { UtilService }  from '../../service/util.service';
 import { Member }  from '../../models/member';
 import { Category }  from '../../models/category';
@@ -41,9 +40,8 @@ export class FormMemberComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private notification: NzNotificationService,
+    private ps: PublicService,
     private ms: MemberService,
-    private ds: DirectoryService,
     private us: UtilService,
     private cs: CategoryService) { }
 
@@ -54,15 +52,16 @@ export class FormMemberComponent implements OnInit {
 
     this.type = this.route.snapshot.paramMap.get("type");
     this.code = this.route.snapshot.paramMap.get("code");
-    this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
     this.Id = Number(this.route.snapshot.paramMap.get("Id"));
 
-    if(this.directoryId){
+    this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
+
+    if(this.directoryId > 0){
       this.getDirectory(this.directoryId);
     }
-    else if(this.Id !== 0){
+    else if(this.Id !== 0 && this.type === 'join'){
       this.isEdit = true;
-      this.ms.member(this.Id).toPromise().then(r=>{
+      this.ps.publicMember(this.Id).toPromise().then(r=>{
         this.member = r;
         this.getDirectory(this.member.directory_id!);
         this.loadDirectory = true;
@@ -95,7 +94,7 @@ export class FormMemberComponent implements OnInit {
   }
 
   getDirectory(id:number){
-    this.ds.directory(id).toPromise().then(r=>{
+    this.ps.publicDirectory(id).toPromise().then(r=>{
       this.directory = r;
     });
   }
@@ -178,15 +177,22 @@ export class FormMemberComponent implements OnInit {
       this.member.images.push({ base64 : this.us.defaultProfile, description:'profile' });
     }
 
-    this.ms.createPublic(this.member).toPromise().then(r=>{
-      this.isLoading = false;
-      if(this.type?.trim() === "" || this.type === null )
+    if(this.type === 'join'){
+      this.ps.createMemberPublic(this.member).toPromise().then(r=>{
+        this.isLoading = false;
+        this.router.navigate([ '/shared/directory', this.code]);
+      }).catch(e=>{
+        this.isLoading = false;
+      });
+    }else{
+      this.ms.create(this.member).toPromise().then(r=>{
+        this.isLoading = false;
         this.router.navigate([ '/private/members', this.directoryId]);
-      else
-        this.router.navigate([ '/public/invitation', this.code]);
-    }).catch(e=>{
-      this.isLoading = false;
-    });
+      }).catch(e=>{
+        this.isLoading = false;
+      });
+    }
+
   }
 
 }
