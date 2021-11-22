@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import Validation from '../../utils/Validation';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthService } from '../../auth/auth.service';
@@ -15,12 +15,22 @@ export class RegisterComponent implements OnInit {
   isError=false;
   isLoading=false;
 
+  type!:string | null;
+  code!:string | null;
+  directoryId!:number;
+
   constructor(private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private notification: NzNotificationService) {}
 
   ngOnInit(): void {
+
+    this.type = this.route.snapshot.paramMap.get("type");
+    this.code = this.route.snapshot.paramMap.get("code");
+    this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
+
     this.form = this.formBuilder.group(
       {
         name: ['', Validators.required],
@@ -53,7 +63,10 @@ export class RegisterComponent implements OnInit {
     console.log(JSON.stringify(this.form.value, null, 2));
     this.authService.register(this.form.value).then(r=>{
       this.isLoading = false;
-      this.router.navigate([ '/private/index' ]);
+      if(this.type === "join")
+        this.router.navigate([ '/shared/form-member', this.type, this.code, this.directoryId ]);
+      else
+        this.router.navigate([ '/private/index' ]);
     }).catch(e=>{
       this.isLoading = false;
       this.isError = true;

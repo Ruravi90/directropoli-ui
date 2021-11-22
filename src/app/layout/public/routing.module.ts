@@ -5,7 +5,7 @@ import { PublicComponent } from '../public/public.component';
 import { IndexPublicComponent } from '../../public/index/index.component';
 import { MemberPublicComponent } from '../../public/member/member.component';
 import { MembersPublicComponent } from '../../public/members/members.component';
-import { FormMemberComponent } from '../../pages/form-member/form-member.component';
+
 
 
 const routes: Routes = [
@@ -24,10 +24,6 @@ const routes: Routes = [
       {
         path: 'member/:id',
         component: MemberPublicComponent,
-      },
-      {
-        path: 'form-member/:type/:code/:directoryId',
-        component: FormMemberComponent,
       },
       {
         path: '**',

@@ -1,7 +1,7 @@
 <main class="form-signin">
   <form class="text-center" [formGroup]="form" (ngSubmit)="onSubmit()">
       <img class="my-4" src="assets/images/logo.svg" alt="Directropoli">
-    <h1 class="h3 mb-3 fw-normal">Please register</h1>
+    <h1 class="h3 mb-3 fw-normal">Registro</h1>
     <div class="form-floating my-2">
         <input type="text"
         class="form-control"
@@ -9,7 +9,7 @@
         formControlName="name"
         name="name"
         placeholder="Name">
-        <label for="name">Name</label>
+        <label for="name">Nombre completo</label>
     </div>
     <div class="form-floating my-2">
       <input type="email"
@@ -18,7 +18,7 @@
       formControlName="email"
       name="email"
       placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
+      <label for="floatingInput">Correo electronico</label>
     </div>
     <div class="form-floating my-2">
         <input class="form-control"
@@ -26,7 +26,7 @@
         [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
         formControlName="password"
         name="password" />
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">Contraseña</label>
     </div>
     <div class="form-floating my-2">
       <input type="password"
@@ -35,10 +35,12 @@
       formControlName="checkPassword"
       name="checkPassword"
       placeholder="Confirm Password">
-      <label for="floatingPassword">Confirm Password</label>
+      <label for="floatingPassword">Confirmar contraseña</label>
     </div>
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+    <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Registrar</button>
+
+    <a class="w-100 btn btn-lg btn-primary" [routerLink]="['/signin/invitation',type ,code, directoryId]">Iniciar sesi&oacute;n</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
   </form>
 </main>

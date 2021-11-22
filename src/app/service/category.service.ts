@@ -11,9 +11,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  categories(): Observable<Category[]> {
-    return this.http.get<Category[]>(environment.apiBase + "categories")
-  }
+
   category(id:number): Observable<Category> {
     return this.http.get<Category>(environment.apiBase + "categories/" + id)
   }

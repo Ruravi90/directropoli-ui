@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { MainModule } from './layout/main/main.module';
 import { PublicModule } from './layout/public/public.module';
 
-
 import { AppComponent } from './app.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { es_ES } from 'ng-zorro-antd/i18n';
@@ -26,7 +25,6 @@ import { FontAwesomeModule ,FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { ImageCropperModule } from 'ngx-image-cropper';
 
 registerLocaleData(es);
-
 
 import { SigninComponent  } from './pages/signin/signin.component';
 import { RegisterComponent  } from './pages/register/register.component';
@@ -50,6 +48,7 @@ import { MemberPublicComponent } from './public/member/member.component';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { SharedModule } from './layout/shared/shared.module';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 
 @NgModule({
@@ -70,7 +69,8 @@ import { SharedModule } from './layout/shared/shared.module';
     SettingComponent,
     IndexPublicComponent,
     MembersPublicComponent,
-    MemberPublicComponent
+    MemberPublicComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +92,7 @@ import { SharedModule } from './layout/shared/shared.module';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    SharedModule
+    SharedModule,
   ],
   providers: [{
     provide: NZ_I18N,

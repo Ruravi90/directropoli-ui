@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 
 import { Directory } from '../models/directory';
 import { Member } from '../models/member';
+import { Category } from '../models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class PublicService {
   }
   createMemberPublic(member:Member): Observable<Member> {
     return this.http.post<Member>(environment.apiBase + "public/members/join",member);
+  }
+
+  categories(): Observable<Category[]> {
+    return this.http.post<Category[]>(environment.apiBase + "public/categories",{});
   }
 }

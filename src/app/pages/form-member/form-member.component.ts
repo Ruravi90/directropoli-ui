@@ -5,6 +5,7 @@ import { MemberService }  from '../../service/member.service';
 import { CategoryService }  from '../../service/category.service';
 import { PublicService }  from '../../service/public.service';
 import { UtilService }  from '../../service/util.service';
+import { AuthService }  from '../../auth/auth.service';
 import { Member }  from '../../models/member';
 import { Category }  from '../../models/category';
 import { Directory }  from '../../models/directory';
@@ -43,10 +44,14 @@ export class FormMemberComponent implements OnInit {
     private ps: PublicService,
     private ms: MemberService,
     private us: UtilService,
+    private as:AuthService,
     private cs: CategoryService) { }
 
   ngOnInit(): void {
-    this.cs.categories().toPromise().then(r=>{
+
+
+
+    this.ps.categories().toPromise().then(r=>{
       this.categories = r;
     });
 
@@ -59,7 +64,7 @@ export class FormMemberComponent implements OnInit {
     if(this.directoryId > 0){
       this.getDirectory(this.directoryId);
     }
-    else if(this.Id !== 0 && this.type === 'join'){
+    else if(this.Id !== 0){
       this.isEdit = true;
       this.ps.publicMember(this.Id).toPromise().then(r=>{
         this.member = r;
@@ -178,9 +183,11 @@ export class FormMemberComponent implements OnInit {
     }
 
     if(this.type === 'join'){
+      this.member.user_id = this.as.userValue().user.id;
+
       this.ps.createMemberPublic(this.member).toPromise().then(r=>{
         this.isLoading = false;
-        this.router.navigate([ '/shared/directory', this.code]);
+        this.router.navigate([ '/private/members', this.directoryId]);
       }).catch(e=>{
         this.isLoading = false;
       });

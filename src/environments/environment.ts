@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiBase: 'http://localhost:8000/api/',
+  publicKey: 'TEST-233c1e61-bfea-469e-936d-8465f3cfc66b',
 };
 
 /*

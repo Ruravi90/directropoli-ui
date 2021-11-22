@@ -5,6 +5,7 @@ import { RegisterComponent  } from './pages/register/register.component';
 import { ResetPasswordComponent  } from './pages/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { LandingComponent  } from './pages/landing/landing.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 import { AuthGuard } from './auth/auth.guard';
 import { RememberGuard } from './auth/remember.guard';
@@ -23,7 +24,16 @@ const routes: Routes = [
     canActivate:[RememberGuard]
   },
   {
+    path: 'signin/invitation/:type/:code/:directoryId',
+    component: SigninComponent,
+    canActivate:[RememberGuard]
+  },
+  {
     path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'register/invitation/:type/:code/:directoryId',
     component: RegisterComponent
   },
   {
@@ -37,11 +47,8 @@ const routes: Routes = [
   {
     path: 'landing', component: LandingComponent,
   },
-
   {
-    path: 'private',
-    loadChildren: () => import('./layout/main/main.module').then(m => m.MainModule),
-    canActivate:[AuthGuard]
+    path: 'payment', component: PaymentComponent,
   },
   {
     path: 'public',
@@ -50,6 +57,11 @@ const routes: Routes = [
   {
     path: 'shared',
     loadChildren: () => import('./layout/shared/shared.module').then(m => m.SharedModule),
+  },
+  {
+    path: 'private',
+    loadChildren: () => import('./layout/main/main.module').then(m => m.MainModule),
+    canActivate:[AuthGuard]
   },
   {
     path: '**',

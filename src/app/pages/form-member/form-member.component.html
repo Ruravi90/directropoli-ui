@@ -237,7 +237,7 @@
               </div>
                 <div class="d-flex justify-content-end mt-4">
                     <a *ngIf="type !=='join'" class="btn btn-outline-danger me-1" [routerLink]="['/private/members', directoryId]">Cancelar</a>
-                    <a *ngIf="type === 'join' " class="btn btn-outline-danger me-1" [routerLink]="['/public/invitation', code]">Cancelar</a>
+                    <a *ngIf="type === 'join' " class="btn btn-outline-danger me-1" [routerLink]="['/shared/directory', code]">Cancelar</a>
                     <button type="submit" class="btn btn-primary ms-1" (click)="onSubmit()">Guardar</button>
                 </div>
             </form>
