@@ -26,7 +26,7 @@
                     placeholder="Descripcion del directorio"></textarea>
                     <label for="floatingDescription">Descripcion del directorio</label>
                   </div>
-                  <div class="row mb-3">
+                  <div class="row mb-3" *ngIf="isEdit">
                     <div class="col-lg-6 mb-2">
                       <img
                           nz-image
@@ -45,7 +45,7 @@
                           alt=""
                         />
                     </div>
-                </div>
+                  </div>
                   <div class="row mb-3">
                       <label for="formFile" class="form-label">{{ isEdit ? 'Cambiar':'Cargar'}} de imagenes</label>
                       <div class="col-lg-6 mb-2">

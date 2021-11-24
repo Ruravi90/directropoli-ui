@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DirectoryService }  from '../../service/directory.service';
+import { UtilService }  from '../../service/util.service';
 import { PublicService }  from '../../service/public.service';
 import { Directory }  from '../../models/directory';
 
@@ -23,6 +24,7 @@ export class MembersPrivateComponent implements OnInit {
     private route: ActivatedRoute,
     private ds: DirectoryService,
     private ps: PublicService,
+    public us: UtilService,
     private message: NzMessageService
     ) { }
 

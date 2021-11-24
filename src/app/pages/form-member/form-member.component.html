@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">{{isEdit?'Editar':'Crear'}} miembro</h1>
 </div>
-<div class="col-lg-12">
+<div class="col-lg-12" *ngIf="!isBusy">
   <nz-spin [nzSpinning]="isLoading">
     <div class="card shadow-sm">
         <div class="card-body">
@@ -43,7 +43,6 @@
                           formControlName="directory_id"
                           name="directory_id"
                           [disabled]="true"
-                          [(ngModel)]="directoryId"
                           aria-label="Disabled floating label select example">
                               <option *ngIf="directory" [value]="directory.id" selected disabled>{{directory.name}}</option>
                           </select>
@@ -245,3 +244,46 @@
     </div>
   </nz-spin>
 </div>
+
+<nz-skeleton [nzLoading]="isBusy" [nzActive]="true" [nzAvatar]="true" class="mt-5">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="isBusy" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>
+<nz-skeleton [nzLoading]="isBusy" [nzActive]="true" [nzAvatar]="true">
+  <ng-template #starAction>
+    <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #likeAction>
+    <i nz-icon nzType="like-o" style="margin-right: 8px;"></i>
+    156
+  </ng-template>
+  <ng-template #msgAction>
+    <i nz-icon nzType="message" style="margin-right: 8px;"></i>
+    2
+  </ng-template>
+</nz-skeleton>

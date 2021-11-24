@@ -21,11 +21,11 @@ export class MemberService {
   create(member:Member): Observable<Member> {
     return this.http.post<Member>(environment.apiBase + "members",member);
   }
-  addImages(member:Member): Observable<Member> {
-    return this.http.post<Member>(environment.apiBase + "members/addImages",{ id: member.id, images: member.images });
+  addImages(id:Number, images:any): Observable<Member> {
+    return this.http.post<Member>(environment.apiBase + "members/addImages",{ id: id, images: [images] });
   }
-  addPromotions(member:Member): Observable<Member> {
-    return this.http.post<Member>(environment.apiBase + "members/addPromotions",{ id: member.id, promotions: member.promotions });
+  addPromotions(id:Number, promotions:any): Observable<Member> {
+    return this.http.post<Member>(environment.apiBase + "members/addPromotions",{ id: id, promotions: [promotions] });
   }
   update(id:number,member:Member): Observable<Member> {
     return this.http.put<Member>(environment.apiBase + "members/"+id,member);

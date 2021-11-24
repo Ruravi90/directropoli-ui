@@ -1,7 +1,7 @@
 <div *ngIf="member != null" class="row d-flex justify-content-center align-items-top py-4 text">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">{{member.name}} </h1>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center" *ngIf="us.isOwner">
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle ms-1" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
@@ -13,9 +13,6 @@
           <li>
           <li><a class="dropdown-item" (click)="isVisiblePromotion=true">
             Agregar promoci&oacute;n</a></li>
-          <li>
-          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalFlayer">
-            Enviar promoci&oacute;n</a></li>
           <li>
           <hr class="dropdown-divider">
           </li>
@@ -90,17 +87,17 @@
                     <div class="tab-pane fade" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">{{member.address}}<span class="ms-2"><a href="">mapa</a></span></div>
                     <div class="tab-pane fade" id="v-pills-media" role="tabpanel" aria-labelledby="v-pills-media-tab">
                       <div class="row d-flex justify-content-center">
-                        <div class="col-lg-12 bg-light rounded p-3 m-4">
-                          <nz-upload
-                              nzType="drag"
-                              [nzMultiple]="false"
-                              [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
-                              (nzChange)="handleChangeMultimedia($event)" >
-                              <p class="ant-upload-drag-icon">
-                                <i nz-icon nzType="inbox"></i>
-                              </p>
-                              <p class="ant-upload-text">Clic o arrastra para agregar la imagen</p>
-                            </nz-upload>
+                        <div class="col-lg-12 bg-light rounded p-3 m-4" *ngIf="us.isOwner">
+                          <input
+                              hidden
+                              type="file"
+                              #uploader
+                              (change)="uploadFile($event)"
+                              accept="image/png,image/jpeg,image/gif,image/bmp"
+                              multiple />
+                          <button (click)="uploader.click()" class="btn btn-primary">
+                            Subir imagenes
+                          </button>
                         </div>
                       </div>
                       <div class="d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
@@ -125,7 +122,7 @@
           <h4 class="card-title">Estos son tus directorios:</h4>
         </div>
         <div class="card-body">
-          <a type="button" *ngFor="let d of directories" [routerLink]="['/private/members/',d.id]" class="btn btn-primary btn-sm mb-2">{{d.name}}</a>
+          <a type="button" *ngFor="let d of directories" [routerLink]="['/private/members/',d.id]" class="btn btn-primary btn-sm mb-1 me-1">{{d.name}}</a>
         </div>
       </div>
     </div>

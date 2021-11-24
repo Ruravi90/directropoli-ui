@@ -2,16 +2,16 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Miembros</h1>
     <div class="d-flex align-items-center">
-      <div class="form-check form-switch me-2">
+      <div class="form-check form-switch me-2"  *ngIf="us.isOwner">
         <nz-switch [(ngModel)]="directory.isPublic"  [nzControl]="true" (click)="changeIsPublic($event)" [nzLoading]="isSubmit"></nz-switch>
         <label class="form-check-label" for="flexSwitchCheckDefault">Hacerlo público</label>
       </div>
-      <div class="dropdown">
+      <div class="dropdown"  *ngIf="us.isOwner">
         <button class="btn btn-primary dropdown-toggle ms-1" type="button" id="dropdownMenuButton1"
           data-bs-toggle="dropdown" aria-expanded="false">
           Menu
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#invitacion">
             Enviar invitación</a></li>
           <li>

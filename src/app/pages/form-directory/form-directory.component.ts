@@ -39,10 +39,12 @@ export class FormDirectoryComponent implements OnInit {
   ngOnInit(): void {
     this.editId = Number(this.route.snapshot.paramMap.get("Id"));
 
-    this.ds.directory(this.editId).toPromise().then(r=>{
-      this.directory = r;
-      this.isEdit = true;
-    });
+    if(this.editId > 0){
+      this.ds.directory(this.editId).toPromise().then(r=>{
+        this.directory = r;
+        this.isEdit = true;
+      });
+    }
 
     this.form = this.formBuilder.group(
       {

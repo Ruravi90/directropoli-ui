@@ -4,9 +4,11 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { MemberService }  from '../../service/member.service';
 import { Member }  from '../../models/member';
 import { DirectoryService }  from '../../service/directory.service';
+import { UtilService }  from '../../service/util.service';
 import { Directory }  from '../../models/directory';
 import { MemberImages } from 'src/app/models/member_images';
 import { NzUploadChangeParam,NzUploadFile } from 'ng-zorro-antd/upload';
+
 import { NzMessageService } from 'ng-zorro-antd/message';
 import * as moment from 'moment';
 
@@ -34,6 +36,7 @@ export class MemberPrivateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ms: MemberService,
     private ds: DirectoryService,
+    public us: UtilService,
     private message: NzMessageService
   ) { }
 
@@ -55,6 +58,7 @@ export class MemberPrivateComponent implements OnInit {
       }
     );
   }
+
 
   get fPromotions(): { [key: string]: AbstractControl } {
     return this.formPromotion.controls;
@@ -101,28 +105,20 @@ export class MemberPrivateComponent implements OnInit {
     return false;
   };
 
-  handleChangeMultimedia({ file, fileList }: NzUploadChangeParam): void  {
-
-    const status = file.status;
-    if (status !== 'uploading') {
-      if(this.member!.images == null){
-        this.member!.images = [];
-      }
-
-      for (const file of fileList) {
-        let reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj!);
+  uploadFile($event:any) {
+    Array.from( $event.target.files).forEach((file:any) => {
+      let reader = new FileReader();
+        reader.readAsDataURL(file);
         reader.onload = () => {
-          this.member!.images?.push({ id:null, base64 : reader.result?.toString(), description: 'multimedia' });
-          this.ms.addImages(this.member!).toPromise();
+          let image = { id:null, base64 : reader.result?.toString(), description: 'multimedia' };
+          this.ms.addImages(this.member?.id!, image).toPromise().then(r=>{
+            this.member!.images?.push(image);
+          });
         };
         reader.onerror = (error) => {
           console.log('Error: ', error);
         };
-      }
-    }
-
-
+    });
   }
 
   handleChangePromotion(info: NzUploadChangeParam): void {
@@ -145,7 +141,6 @@ export class MemberPrivateComponent implements OnInit {
   }
 
   onSubmitPromotion(){
-
     for (const i in this.formPromotion.controls) {
       if (this.formPromotion.controls.hasOwnProperty(i)) {
         this.formPromotion.controls[i].markAsDirty();
@@ -167,18 +162,19 @@ export class MemberPrivateComponent implements OnInit {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.member!.promotions!.push({
+        let promotion ={
           id:null,
           base64 :  reader.result?.toString(),
           description: this.formPromotion.value.description ,
           validity_ini: moment(this.formPromotion.value.validity_ini).format("YYYY/MM/DD hh:mm:ss"),
           validity_end: moment(this.formPromotion.value.validity_end).format("YYYY/MM/DD hh:mm:ss")
-        });
-        this.ms.addPromotions(this.member!).toPromise().then(r=>{
+        };
+        this.ms.addPromotions(this.member?.id!, promotion).toPromise().then(r=>{
           this.isConfirmLoading = false;
           this.isVisiblePromotion = false;
           this.tempFileList = [];
           this.formPromotion.reset();
+          this.member?.promotions?.push(promotion);
         });
       };
       reader.onerror = (error) => {

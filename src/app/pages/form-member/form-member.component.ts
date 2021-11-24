@@ -11,6 +11,7 @@ import { Category }  from '../../models/category';
 import { Directory }  from '../../models/directory';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NzUploadChangeParam,NzUploadFile } from 'ng-zorro-antd/upload';
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-form-member',
@@ -22,6 +23,7 @@ export class FormMemberComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
   isLoading = false;
+  isBusy = true;
   loadDirectory = false;
   type!:string | null;
   code!:string | null;
@@ -48,28 +50,30 @@ export class FormMemberComponent implements OnInit {
     private cs: CategoryService) { }
 
   ngOnInit(): void {
-
-
-
-    this.ps.categories().toPromise().then(r=>{
-      this.categories = r;
-    });
-
     this.type = this.route.snapshot.paramMap.get("type");
     this.code = this.route.snapshot.paramMap.get("code");
     this.Id = Number(this.route.snapshot.paramMap.get("Id"));
-
     this.directoryId = Number(this.route.snapshot.paramMap.get("directoryId"));
 
-    if(this.directoryId > 0){
-      this.getDirectory(this.directoryId);
+    if(this.Id === 0){
+      forkJoin([
+        this.ps.categories().toPromise().then(r=>{ this.categories = r; }),
+        this.ps.publicDirectory(this.directoryId).toPromise().then(r=>{this.directory = r;})
+      ]).subscribe(allResults => {
+        this.isBusy = false;
+        this.member.directory_id = this.directoryId;
+      });
     }
     else if(this.Id !== 0){
       this.isEdit = true;
-      this.ps.publicMember(this.Id).toPromise().then(r=>{
-        this.member = r;
-        this.getDirectory(this.member.directory_id!);
-        this.loadDirectory = true;
+      forkJoin([
+        this.ps.categories().toPromise().then(r=>{ this.categories = r; }),
+        this.ps.publicMember(this.Id).toPromise().then(r=>{ this.member = r; })
+      ]).subscribe(allResults => {
+        this.ps.publicDirectory(this.member.directory_id).toPromise().then(r=>{
+          this.directory = r;
+          this.isBusy = false;
+        });
       });
     }
 
@@ -98,12 +102,6 @@ export class FormMemberComponent implements OnInit {
     return this.form.controls;
   }
 
-  getDirectory(id:number){
-    this.ps.publicDirectory(id).toPromise().then(r=>{
-      this.directory = r;
-    });
-  }
-
   getBase64(event:any) {
     let me = this;
     this.member.images = [];
@@ -122,7 +120,7 @@ export class FormMemberComponent implements OnInit {
   }
 
   handleHeaderChange(info: NzUploadChangeParam): void {
-    if (info.file.status !== 'uploading') {
+    if (info.file.status === 'uploading') {
       this.headerImage = '';
       this.headeImageChangeEvent='';
       if(info.fileList.length > 0){
@@ -135,7 +133,7 @@ export class FormMemberComponent implements OnInit {
     }
   }
   handleProfileChange(info: NzUploadChangeParam): void {
-    if (info.file.status !== 'uploading') {
+    if (info.file.status === 'uploading') {
       this.profileImage = '';
       this.profileImageChangeEvent='';
       if(info.fileList.length > 0){
@@ -167,22 +165,25 @@ export class FormMemberComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.member.images = [];
+    if(!this.isEdit)
+      this.member.images = [];
+
+
     if(this.headerImage !== ''){
-      this.member.images.push({ base64 : this.headerImage, description:'header' });
+      this.member.images!.push({ base64 : this.headerImage, description:'header' });
     }
     else{
-      this.member.images.push({ base64 : this.us.defaultHeader, description:'header' });
+      this.member.images!.push({ base64 : this.us.defaultHeader, description:'header' });
     }
 
     if(this.profileImage !== ''){
-      this.member.images.push({ base64 : this.profileImage, description:'profile' });
+      this.member.images!.push({ base64 : this.profileImage, description:'profile' });
     }
     else{
-      this.member.images.push({ base64 : this.us.defaultProfile, description:'profile' });
+      this.member.images!.push({ base64 : this.us.defaultProfile, description:'profile' });
     }
 
-    if(this.type === 'join'){
+    if(this.type === 'join' && !this.isEdit){
       this.member.user_id = this.as.userValue().user.id;
 
       this.ps.createMemberPublic(this.member).toPromise().then(r=>{
@@ -191,7 +192,16 @@ export class FormMemberComponent implements OnInit {
       }).catch(e=>{
         this.isLoading = false;
       });
-    }else{
+    }
+    else if(this.isEdit){
+      this.ms.update(this.Id,this.member).toPromise().then(r=>{
+        this.isLoading = false;
+        this.router.navigate([ '/private/members', this.member.directory_id]);
+      }).catch(e=>{
+        this.isLoading = false;
+      });
+    }
+    else{
       this.ms.create(this.member).toPromise().then(r=>{
         this.isLoading = false;
         this.router.navigate([ '/private/members', this.directoryId]);
